@@ -1,0 +1,9 @@
+.normalized-downloads { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.normalized-downloads button { font:inherit; font-size:.85rem; font-weight:700; color:inherit; border:1px solid var(--border-color, rgba(148,163,184,.3)); border-radius:9px; background:var(--card-bg,#172538); padding:10px 14px; cursor:pointer; white-space:nowrap; }
+.normalized-downloads button:hover { border-color:#60a5fa; }
+.normalized-downloads button:focus-visible { outline:2px solid #60a5fa; outline-offset:2px; }
+.normalized-downloads-compact { gap:7px; }
+.normalized-downloads-compact button { font-size:.78rem; padding:8px 10px; }
+@media(max-width:620px) { .normalized-downloads:not(.normalized-downloads-compact) button { flex:1; } }
+
+.normalized-download-error { color: #ef4444; font-size: 0.8rem; }

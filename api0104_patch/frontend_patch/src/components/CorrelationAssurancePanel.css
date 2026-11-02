@@ -1,0 +1,18 @@
+.ca-panel { display: grid; gap: 14px; }
+.ca-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.ca-heading h2 { margin: 0 0 6px; }
+.ca-heading p { margin: 0; opacity: .78; line-height: 1.5; max-width: 740px; }
+.ca-badge { border: 1px solid rgba(128, 140, 155, .38); border-radius: 10px; padding: 7px 10px; font-size: .82rem; font-weight: 700; }
+.ca-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ca-metrics > div { border: 1px solid rgba(128, 140, 155, .3); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+.ca-metrics strong { font-size: 1.15rem; }
+.ca-metrics span, .ca-item small { font-size: .81rem; opacity: .77; }
+.ca-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.ca-item { border: 1px solid rgba(128, 140, 155, .3); padding: 13px; border-radius: 10px; overflow-wrap: anywhere; }
+.ca-item-title { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.ca-item-title span { font-size: .76rem; opacity: .75; }
+.ca-item p { margin: 8px 0; line-height: 1.5; }
+.ca-warning { background: rgba(180, 83, 9, .09); border: 1px solid rgba(180, 83, 9, .3); border-radius: 10px; padding: 11px; line-height: 1.5; }
+.ca-disclaimer { margin: 0; opacity: .75; font-size: .85rem; }
+.ca-panel details ul { padding-left: 22px; }
+@media (max-width: 560px) { .ca-metrics { grid-template-columns: 1fr; } }

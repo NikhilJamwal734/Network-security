@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "files": {
+    "app/f5_phase1_addon/api.py": {
+      "created": false,
+      "installed_sha256": "d7e6994d464614a2ccb1a279c26421d56af7cae9d6774f14b9e31a2c80fe6a3a",
+      "original_sha256": "dcb46a1f2ed34086ded462a05a84482b5dcfce154d32af19efea3227a5744210"
+    },
+    "frontend/src/api/f5Phase1.ts": {
+      "created": false,
+      "installed_sha256": "1c0a43a565e8a0623b012f161d1971f6bd4bf2a9671c4d969334370149f14f77",
+      "original_sha256": "1f8b819da0621062f550ab36c70d8f1333ca0482d95afe2b0dd696aeb909c5e1"
+    },
+    "frontend/src/utils/normalizedPdf.ts": {
+      "created": false,
+      "installed_sha256": "8387bf29c119cfa7e0d17c5a6ce83091b1880ae52a7cf541bddcba9aa9cdda1e",
+      "original_sha256": "90022b190715b012856b66488a14b2a55d0bb720390c2808d882acf8a67fa27a"
+    },
+    "app/f5_phase2_addon/__init__.py": {
+      "created": true,
+      "installed_sha256": "bd3ba40bac3b3660ce4906cbcfc1e24ecf54afef8146a183e229f50b591cfab3",
+      "original_sha256": null
+    },
+    "app/f5_phase2_addon/review.py": {
+      "created": true,
+      "installed_sha256": "5d11627d98f3b162a10f3e08c91b2d89646be5fec1e677c1961e0309db73f239",
+      "original_sha256": null
+    }
+  }
+}

@@ -1,0 +1,315 @@
+/* ============================================================
+   FIREWALL ANALYZER — 3 ACCESSIBLE UI THEMES
+   Midnight (default) | Cyber Blue | Light
+
+   Import AFTER existing App CSS to override hard-coded colors.
+   Appearance only: severity chart segment colors remain unchanged.
+   ============================================================ */
+
+:root,
+html[data-fa-theme="midnight"] {
+  --fa-t-bg: #081322;
+  --fa-t-sidebar: #0c192b;
+  --fa-t-topbar: #101f34;
+  --fa-t-panel: #13233b;
+  --fa-t-panel-elevated: #1b2d48;
+  --fa-t-text: #edf5ff;
+  --fa-t-muted: #a5b6cf;
+  --fa-t-border: #304561;
+  --fa-t-accent: #5c95ff;
+  --fa-t-accent-hover: #3978ec;
+  --fa-t-accent-text: #ffffff;
+  --fa-t-soft-accent: rgba(92, 149, 255, .14);
+  --fa-t-glow: rgba(46, 108, 221, .14);
+  --fa-t-status: #34d399;
+  --fa-t-shadow: 0 15px 40px rgba(0, 5, 15, .13);
+}
+
+html[data-fa-theme="cyber"] {
+  --fa-t-bg: #06141d;
+  --fa-t-sidebar: #081b25;
+  --fa-t-topbar: #0b202a;
+  --fa-t-panel: #102731;
+  --fa-t-panel-elevated: #153540;
+  --fa-t-text: #e8fff9;
+  --fa-t-muted: #9dcecc;
+  --fa-t-border: #2a5057;
+  --fa-t-accent: #14c8bc;
+  --fa-t-accent-hover: #0aaca4;
+  --fa-t-accent-text: #062224;
+  --fa-t-soft-accent: rgba(20, 200, 188, .14);
+  --fa-t-glow: rgba(8, 184, 176, .12);
+  --fa-t-status: #55e5a4;
+  --fa-t-shadow: 0 15px 38px rgba(0, 18, 25, .18);
+}
+
+html[data-fa-theme="light"] {
+  --fa-t-bg: #f2f6fc;
+  --fa-t-sidebar: #ffffff;
+  --fa-t-topbar: #ffffff;
+  --fa-t-panel: #ffffff;
+  --fa-t-panel-elevated: #eaf1fb;
+  --fa-t-text: #182742;
+  --fa-t-muted: #586b85;
+  --fa-t-border: #d4dfed;
+  --fa-t-accent: #2563eb;
+  --fa-t-accent-hover: #1d4ed8;
+  --fa-t-accent-text: #ffffff;
+  --fa-t-soft-accent: rgba(37, 99, 235, .1);
+  --fa-t-glow: rgba(37, 99, 235, .07);
+  --fa-t-status: #159b71;
+  --fa-t-shadow: 0 14px 32px rgba(32, 63, 104, .07);
+}
+
+html[data-fa-theme] {
+  background: var(--fa-t-bg);
+  color-scheme: dark;
+}
+html[data-fa-theme="light"] { color-scheme: light; }
+html[data-fa-theme] body,
+html[data-fa-theme] #root {
+  min-height: 100vh;
+  background: var(--fa-t-bg);
+  color: var(--fa-t-text);
+}
+
+/* Main application surfaces */
+html[data-fa-theme] .app {
+  color: var(--fa-t-text);
+  background: var(--fa-t-bg);
+}
+html[data-fa-theme] .app .main-content,
+html[data-fa-theme] .app .page-content {
+  background-color: var(--fa-t-bg);
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app .sidebar {
+  background: var(--fa-t-sidebar);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app .topbar {
+  background: var(--fa-t-topbar);
+  border-color: var(--fa-t-border);
+  box-shadow: 0 1px 0 var(--fa-t-border);
+}
+html[data-fa-theme] .app .panel,
+html[data-fa-theme] .app .dashboard-state,
+html[data-fa-theme] .app .summary-card,
+html[data-fa-theme] .app .stat-card,
+html[data-fa-theme] .app .metric-card {
+  background: var(--fa-t-panel);
+  border-color: var(--fa-t-border);
+  color: var(--fa-t-text);
+  box-shadow: var(--fa-t-shadow);
+}
+
+/* Common headings and supporting content */
+html[data-fa-theme] .app h1,
+html[data-fa-theme] .app h2,
+html[data-fa-theme] .app h3,
+html[data-fa-theme] .app .brand-title,
+html[data-fa-theme] .app .status-label,
+html[data-fa-theme] .app .stat-value,
+html[data-fa-theme] .app .metric-value {
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app .page-header p,
+html[data-fa-theme] .app .panel-header p,
+html[data-fa-theme] .app .breadcrumb,
+html[data-fa-theme] .app .brand-subtitle,
+html[data-fa-theme] .app .nav-section-title,
+html[data-fa-theme] .app .status-detail,
+html[data-fa-theme] .app .version,
+html[data-fa-theme] .app .environment,
+html[data-fa-theme] .app .state-help {
+  color: var(--fa-t-muted);
+}
+
+/* Sidebar selection and header controls */
+html[data-fa-theme] .app .nav-item { color: var(--fa-t-muted); }
+html[data-fa-theme] .app .nav-item:hover {
+  color: var(--fa-t-text);
+  background: var(--fa-t-panel-elevated);
+}
+html[data-fa-theme] .app .nav-item.active,
+html[data-fa-theme] .app .nav-item[aria-current="page"] {
+  color: var(--fa-t-text);
+  background: var(--fa-t-soft-accent);
+  border-color: var(--fa-t-accent);
+}
+html[data-fa-theme] .app .brand-mark {
+  color: var(--fa-t-accent);
+  background: var(--fa-t-soft-accent);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app .fa-mobile-menu-button {
+  color: var(--fa-t-text);
+  background: var(--fa-t-panel-elevated);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app .fa-mobile-overlay {
+  background: rgba(0, 8, 18, .65);
+}
+html[data-fa-theme] .app .status-dot {
+  background-color: var(--fa-t-status);
+}
+html[data-fa-theme] .app .user-avatar {
+  color: var(--fa-t-text);
+  background: var(--fa-t-panel-elevated);
+  border-color: var(--fa-t-border);
+}
+
+/* Upload card, buttons and filename. Keep the 24px gap from UI polish. */
+html[data-fa-theme] .app .fa-upload-heading h2,
+html[data-fa-theme] .app .fa-upload-filename {
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app .fa-upload-heading p,
+html[data-fa-theme] .app .fa-upload-help {
+  color: var(--fa-t-muted);
+}
+html[data-fa-theme] .app .fa-upload-file-group,
+html[data-fa-theme] .app .fa-upload-format {
+  background: var(--fa-t-panel-elevated);
+  border-color: var(--fa-t-border);
+  color: var(--fa-t-muted);
+}
+html[data-fa-theme] .app .fa-upload-select {
+  color: var(--fa-t-text);
+  background: var(--fa-t-panel);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app .fa-upload-select:hover:not(:disabled) {
+  background: var(--fa-t-soft-accent);
+  border-color: var(--fa-t-accent);
+}
+html[data-fa-theme] .app .fa-upload-analyze {
+  color: var(--fa-t-accent-text);
+  background: var(--fa-t-accent);
+  border-color: var(--fa-t-accent);
+  box-shadow: 0 5px 20px var(--fa-t-glow);
+}
+html[data-fa-theme] .app .fa-upload-analyze:hover:not(:disabled) {
+  background: var(--fa-t-accent-hover);
+}
+
+/* Chart: adapt the legend and center text; keep red/orange/yellow/blue arcs. */
+html[data-fa-theme] .app .fa-severity-legend-row {
+  background: var(--fa-t-panel-elevated);
+}
+html[data-fa-theme] .app .fa-severity-label,
+html[data-fa-theme] .app .fa-severity-count {
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app .fa-severity-percent,
+html[data-fa-theme] .app .fa-severity-note {
+  color: var(--fa-t-muted);
+}
+html[data-fa-theme] .app .fa-severity-number {
+  fill: var(--fa-t-text);
+}
+html[data-fa-theme] .app .fa-severity-center-label {
+  fill: var(--fa-t-muted);
+}
+html[data-fa-theme] .app .fa-severity-svg > circle {
+  stroke: var(--fa-t-border);
+}
+
+/* Native controls and simple data tables */
+html[data-fa-theme] .app input:not([type="file"]),
+html[data-fa-theme] .app textarea,
+html[data-fa-theme] .app select:not(.fa-theme-select) {
+  background-color: var(--fa-t-panel-elevated);
+  border-color: var(--fa-t-border);
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app table {
+  color: var(--fa-t-text);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app th {
+  background-color: var(--fa-t-panel-elevated);
+  color: var(--fa-t-text);
+  border-color: var(--fa-t-border);
+}
+html[data-fa-theme] .app td {
+  border-color: var(--fa-t-border);
+}
+
+/* Theme selector shown next to JSON/PDF exports */
+html[data-fa-theme] .app .fa-theme-picker {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 9px;
+  min-height: 38px;
+  padding: 5px 9px;
+  border: 1px solid var(--fa-t-border);
+  border-radius: 10px;
+  background: var(--fa-t-panel-elevated);
+  color: var(--fa-t-text);
+  box-sizing: border-box;
+}
+html[data-fa-theme] .app .fa-theme-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fa-t-muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+html[data-fa-theme] .app .fa-theme-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.4);
+  flex: 0 0 auto;
+}
+html[data-fa-theme] .app .fa-theme-swatch-midnight { background: #5c95ff; }
+html[data-fa-theme] .app .fa-theme-swatch-cyber { background: #14c8bc; }
+html[data-fa-theme] .app .fa-theme-swatch-light { background: #e5efff; border-color: #2563eb; }
+html[data-fa-theme] .app .fa-theme-select {
+  width: 112px;
+  min-height: 30px;
+  border: 0;
+  outline-offset: 3px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fa-t-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+html[data-fa-theme] .app .fa-theme-select option {
+  background: var(--fa-t-panel);
+  color: var(--fa-t-text);
+}
+html[data-fa-theme] .app .fa-theme-select:focus-visible,
+html[data-fa-theme] .app button:focus-visible {
+  outline: 2px solid var(--fa-t-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  html[data-fa-theme] .app .topbar-right {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  html[data-fa-theme] .app .fa-theme-picker {
+    order: -1;
+    margin-left: auto;
+  }
+  html[data-fa-theme] .app .fa-topbar-downloads {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-fa-theme] .app * { scroll-behavior: auto; }
+}

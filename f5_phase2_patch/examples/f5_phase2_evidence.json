@@ -1,0 +1,10 @@
+{
+  "ucs_backups": [
+    {"name": "example-backup.ucs", "encrypted": false},
+    {"name": "encrypted-backup.ucs", "encrypted": true}
+  ],
+  "signature_updates": {
+    "status": "failed",
+    "last_installed": "2026-01-15"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "automated_status": "INCOMPLETE",
+  "caveats": [
+    "Synthetic sample tests do not establish real-device configuration security.",
+    "HTTP 200 for a React page does not establish browser-side rendering or color accessibility.",
+    "Manual PDF export, browser UI, log viewer colors, and clean-machine testing remain required.",
+    "Earlier historical patch tests still include unresolved fixture/portability failures."
+  ],
+  "checks": [
+    {
+      "detail": "SHA-256 matches build receipt; previous EXE smoke marked PASS",
+      "name": "EXE integrity",
+      "status": "PASS"
+    },
+    {
+      "detail": "Independent EXE started and announced dynamic loopback URL",
+      "name": "Windows EXE execution",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTML delivered by dynamically bound packaged server; browser rendering requires manual check",
+      "name": "Packaged dashboard",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; status=ok",
+      "name": "Packaged health API",
+      "status": "PASS"
+    },
+    {
+      "detail": "Packaged HTML served; visual colors and rendering require manual review",
+      "name": "JSON Logs HTML",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; application stream and entries array; content not retained",
+      "name": "JSON Logs API",
+      "status": "PASS"
+    },
+    {
+      "detail": "3/5 without JSON, 4/4 with JSON; evidence confidence and config SHA-256 verified",
+      "name": "F5 packaged upload regression",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; vendor=cisco_asa; findings=1; validated upload",
+      "name": "cisco_asa EXE upload",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; vendor=fortios; findings=1; validated upload",
+      "name": "fortios EXE upload",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; vendor=snort; findings=1; validated upload",
+      "name": "snort EXE upload",
+      "status": "PASS"
+    },
+    {
+      "detail": "HTTP 200; vendor=suricata; findings=0; validated upload",
+      "name": "suricata EXE upload",
+      "status": "PASS"
+    },
+    {
+      "detail": "LocalAppData log changed; valid JSON request events present; no records stored in report",
+      "name": "JSON audit log file activity",
+      "status": "PASS"
+    },
+    {
+      "detail": "EXE stopped after break, but exit code=3; manual Ctrl+C required",
+      "name": "Clean EXE shutdown",
+      "status": "INCOMPLETE"
+    }
+  ],
+  "counts": {
+    "failed": 0,
+    "incomplete": 1,
+    "passed": 12
+  },
+  "created_at_utc": "2026-11-01T17:09:44.496811+00:00",
+  "exe_name": "FirewallAnalyzer.exe",
+  "manual_ui_acceptance": "PENDING",
+  "production_security_certified": false,
+  "suite": "FirewallAnalyzer-packaged-Windows-EXE-acceptance"
+}

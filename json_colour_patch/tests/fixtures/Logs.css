@@ -1,0 +1,36 @@
+.fa-logs{color:#e2e8f0;max-width:1300px;margin:auto;padding:12px 0 36px;font-family:inherit}
+.fa-logs-title{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.fa-logs-title h1{margin:2px 0 8px;font-size:clamp(25px,2.7vw,36px);font-weight:760;letter-spacing:-.03em}
+.fa-logs-title p{margin:0;color:#9caec7;line-height:1.6;font-size:14px}
+.fa-logs-title .fa-logs-eyebrow{color:#60a5fa;letter-spacing:.17em;font-size:11px;font-weight:750}
+.fa-logs-actions{display:flex;gap:8px;padding-top:8px}
+.fa-logs-actions button,.fa-logs-controls input,.fa-logs-controls select{border:1px solid #334155;border-radius:9px;background:#121e30;color:#e2e8f0;font:inherit}
+.fa-logs-actions button{padding:10px 16px;cursor:pointer;font-size:13px;font-weight:650}
+.fa-logs-actions button:hover{border-color:#60a5fa}
+.fa-logs-actions button:disabled{opacity:.4;cursor:not-allowed}
+.fa-logs-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:23px 0}
+.fa-logs-counter{border:1px solid #263449;border-radius:12px;padding:16px;background:#121c2a;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fa-logs-counter span{font-size:12px;font-weight:700;letter-spacing:.06em}.fa-logs-counter strong{font-size:24px;font-variant-numeric:tabular-nums}
+.fa-logs-counter.is-error{color:#f87171}.fa-logs-counter.is-warning{color:#facc15}.fa-logs-counter.is-success{color:#4ade80}.fa-logs-counter.is-info{color:#7dd3fc}
+.fa-logs-controls{display:grid;grid-template-columns:minmax(170px,1fr) minmax(150px,1fr) minmax(220px,2fr) auto;gap:12px;align-items:end;padding:16px;border:1px solid #263449;border-radius:12px;background:#0e1725}
+.fa-logs-controls label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:650;color:#aebed3}
+.fa-logs-controls select,.fa-logs-controls input[type=search]{width:100%;height:39px;padding:0 11px;outline:none;font-size:13px}
+.fa-logs-controls select:focus,.fa-logs-controls input:focus{border-color:#60a5fa}
+.fa-logs-controls .fa-logs-live{display:flex;flex-direction:row;align-items:center;white-space:nowrap;height:39px;gap:8px;font-weight:500}
+.fa-logs-controls .fa-logs-live input{accent-color:#60a5fa}
+.fa-logs-caption{display:flex;justify-content:space-between;gap:10px;color:#94a3b8;font-size:12px;padding:15px 2px 9px}
+.fa-logs-list{display:flex;flex-direction:column;gap:8px}.fa-log-row{display:flex;gap:14px;align-items:flex-start;padding:14px 15px;border:1px solid #263449;border-left-width:3px;border-radius:10px;background:#0f1928}
+.fa-log-row.is-error{border-left-color:#f87171}.fa-log-row.is-warning{border-left-color:#facc15}.fa-log-row.is-success{border-left-color:#4ade80}.fa-log-row.is-info{border-left-color:#7dd3fc}
+.fa-log-dot{width:8px;height:8px;border-radius:99px;background:#7dd3fc;flex-shrink:0;margin-top:8px}
+.is-error .fa-log-dot{background:#f87171}.is-warning .fa-log-dot{background:#facc15}.is-success .fa-log-dot{background:#4ade80}
+.fa-log-body{min-width:0;flex:1}.fa-log-topline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.fa-log-topline strong{font-size:14px;font-weight:650;text-transform:capitalize;color:#e2e8f0}
+.fa-log-topline time{font-size:11px;color:#94a3b8;margin-left:auto;font-variant-numeric:tabular-nums}
+.fa-log-level{font-size:10px;font-weight:800;letter-spacing:.075em;color:#7dd3fc}.is-error .fa-log-level{color:#f87171}.is-warning .fa-log-level{color:#facc15}.is-success .fa-log-level{color:#4ade80}
+.fa-log-details{display:flex;flex-wrap:wrap;gap:8px}.fa-log-details span{background:#19273a;color:#cbd5e1;border:1px solid #25364b;border-radius:6px;padding:5px 8px;font-size:11px;overflow-wrap:anywhere}
+.fa-log-details b{color:#94a3b8;font-weight:650;margin-right:5px}
+.fa-logs-error{margin:10px 0 14px;border:1px solid #7f1d1d;background:#3d151b;color:#fecaca;padding:12px;border-radius:8px}
+.fa-logs-empty{padding:25px;text-align:center;color:#94a3b8;border:1px dashed #334155;border-radius:10px}
+.fa-logs-footer{font-size:12px;color:#8395ac;margin-top:20px}
+@media(max-width:900px){.fa-logs-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.fa-logs-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.fa-logs-controls{grid-template-columns:1fr}.fa-logs-summary{gap:7px}.fa-logs-counter{padding:11px;flex-wrap:wrap}.fa-logs-title h1{font-size:25px}}

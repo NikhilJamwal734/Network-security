@@ -1,0 +1,45 @@
+{
+  "api_version": "11.4",
+  "files": {
+    "app/api/main.py": {
+      "original_exists": true,
+      "original_sha256": "47cb12f04a84a98c75019e88c26e21fae0e0b228cdc52785ee412b99f2d96733",
+      "new_sha256": "805db3bf336eb37513074c675c28c97859ccfc487890f7af8343e70321a4baf8"
+    },
+    "app/core/pipeline_validation.py": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "3bc2e8ac81673d7c0e2ff3c4a8adaeafdbb13f37cc210707177f58597ed24b3b"
+    },
+    "app/api/pipeline_validation.py": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "6da6f88f1189d9c649e46a56cc9be35aec3faaf3b248e109e907c5e79d9e8aa8"
+    },
+    "frontend/src/api/universal.ts": {
+      "original_exists": true,
+      "original_sha256": "4372ebc6800fb4ab706796407fc17f150c8ae8b1145bdec23583239a02030c53",
+      "new_sha256": "c07caed5e122aa80352a272f7f564a40a53a620ff2ec23bd17be9862d12fef23"
+    },
+    "frontend/src/pages/UniversalAnalysis.tsx": {
+      "original_exists": true,
+      "original_sha256": "b1f0f01f7d8553d95732b2d22b62f161ab03a2970cb433e785a97009658ef91f",
+      "new_sha256": "ac2cc5a0a91b7bf43436860f636dcac52cd63724157ef17725dcbb3a804b1d4d"
+    },
+    "frontend/src/utils/normalizedPdf.ts": {
+      "original_exists": true,
+      "original_sha256": "3ffcf6f9ef86041f9ee55f795ed35410ee7280274257adb43b4dee614355862c",
+      "new_sha256": "d64decc3250beaf71d94f81feeaa48f094bda3215c5a64605e8791ee2bcf0158"
+    },
+    "frontend/src/components/PipelineValidationSnippet.tsx": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "873e2edab8f283a52f091c740680fc00d25d29b73dedd4308bcc49017d0ef480"
+    },
+    "frontend/src/components/PipelineValidationSnippet.css": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "f708f98ffb4cd07340d1851634b00309fb73decf9126b8999c567ceb9fde98c0"
+    }
+  }
+}

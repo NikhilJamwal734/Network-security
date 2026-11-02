@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "app/api/main.py",
+      "old_hash": "00d52db7af6df65efe28e87776312b6026927d8267552cb3ea63d9225594d85e",
+      "new_hash": "95a5cf45111fc89ec6ac518c8e3db6c6d84581587e2774f28d0041126b625660",
+      "backup": "0.bak"
+    },
+    {
+      "path": "app/f5_phase1_addon/api.py",
+      "old_hash": "d7e6994d464614a2ccb1a279c26421d56af7cae9d6774f14b9e31a2c80fe6a3a",
+      "new_hash": "289566d7085d6909db903b8a7cda7df837c6da87adbf0e94a521905734cb5b0c",
+      "backup": "1.bak"
+    },
+    {
+      "path": "frontend/src/api/f5Phase1.ts",
+      "old_hash": "5e9b945161e83fd7a31b02705c4149d638fcc014dee2a594696d9e1f864b6451",
+      "new_hash": "87a2c288d2c1e8726e0411b8c401ceba1f71e060c8f9755de53cc16451d3395f",
+      "backup": "2.bak"
+    },
+    {
+      "path": "frontend/src/utils/normalizedPdf.ts",
+      "old_hash": "1d5c2a59c3b992419cf467b25396372f4b574032a25f4405e304ee50d7d70523",
+      "new_hash": "5c3b293367cc693103c5b8555cd5aadb17ad44b3d235d827bba2feb513f8ad2a",
+      "backup": "3.bak"
+    },
+    {
+      "path": "app/security/desktop_boundary.py",
+      "old_hash": null,
+      "new_hash": "8a7291b209e23265b9c29e714d75d84a774b0a9e01c2cc229cf4095339fc5df2",
+      "backup": null
+    },
+    {
+      "path": "app/f5_phase5_addon/assurance.py",
+      "old_hash": null,
+      "new_hash": "3418053620a23aa8e206dc66cd7a6dfa0cbdc5104e905e768bbeb4455738c671",
+      "backup": null
+    },
+    {
+      "path": "app/f5_phase5_addon/__init__.py",
+      "old_hash": null,
+      "new_hash": "363f2b81e97fd81f42dc8be39c43b964997ef1a613dee71fe0506df6fd0a0602",
+      "backup": null
+    }
+  ]
+}

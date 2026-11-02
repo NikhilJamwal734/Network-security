@@ -1,0 +1,12 @@
+.con110-panel { display: flex; flex-direction: column; gap: 12px; }
+.con110-heading { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.con110-heading h2 { margin: 0; font-size: 1.05rem; font-weight: 650; }
+.con110-heading span { font-size: .76rem; opacity: .8; }
+.con110-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.con110-stats div { padding: 9px; border: 1px solid var(--border-color, #33415544); border-radius: 8px; display: flex; flex-direction: column; gap: 5px; }
+.con110-stats strong { font-size: 1.14rem; line-height: 1.25; }
+.con110-stats span, .con110-note { font-size: .78rem; opacity: .85; }
+.con110-snippets { margin: 0; padding-left: 1.25rem; font-size: .86rem; }
+.con110-snippets li + li { margin-top: 5px; }
+.con110-note { margin: 0; }
+@media (max-width: 620px) { .con110-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

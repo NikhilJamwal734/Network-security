@@ -1,0 +1,15 @@
+{
+  "version": "12.0",
+  "files": {
+    "app/api/main.py": {
+      "had_original": true,
+      "original_sha256": "a5846d63e82690ff19036a7a394230dcbbacf79ce0731f0bc749cdc57784ec66",
+      "installed_sha256": "054e3b460b8a24512f4d789568949156b4ea2ba7b1cd1965b46f75a1a4f9ab49"
+    },
+    "app/api/release_status.py": {
+      "had_original": false,
+      "original_sha256": null,
+      "installed_sha256": "84b564090471cecf9e3ffe8c2f1f1bbbbd9b701bcd0cbeec9a1cb6f0e05a6032"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "patch": "safe-filename-audit-v1",
+  "files": {
+    "app/core/audit_logging.py": {
+      "original_sha256": "0a51f4ec912313c471cae102752999b816e1520f51e196a6b0001633e2cd9992",
+      "installed_sha256": "1e7d68c3ee127a8fc283a5887a122deb3721db679e67b7ba57e41c51f28b2245"
+    },
+    "app/api/hardened_analysis.py": {
+      "original_sha256": "b1901e62b54a74de43184ecbd2fff0853284253be02fd9db17210260d884a16c",
+      "installed_sha256": "08063a1dda1da37e3734e197e3be43c9b722601c8fd888b96184bf91c573ca88"
+    }
+  }
+}

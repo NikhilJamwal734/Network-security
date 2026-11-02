@@ -1,0 +1,17 @@
+UNIFIED FORMAL PDF REPORTS — ALL FOUR PLATFORMS
+================================================
+
+Open PowerShell at:
+  C:\IoT\Information security\project 2\config analyzer
+
+1. Extract Unified-Formal-PDF-All-Platforms.zip there.
+2. Run:
+   .\.venv-win\Scripts\python.exe .\unified_formal_pdf_patch\scripts\install_unified_pdf.py
+3. Build:
+   cd .\frontend
+   npm run build
+4. Run frontend and backend, analyze a Cisco ASA configuration and download PDF.
+5. Repeat with Snort, Suricata and FortiOS. All should now have the same formal PDF style.
+
+The installer backs up every modified file and stops on unexpected layouts.
+Details and rollback: unified_formal_pdf_patch/README.md

@@ -1,0 +1,20 @@
+.or-panel { display: grid; gap: 15px; }
+.or-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.or-heading h2 { margin: 0 0 5px; }
+.or-heading p { margin: 0; opacity: .78; line-height: 1.5; }
+.or-label { border: 1px solid rgba(125, 145, 160, .45); padding: 6px 10px; border-radius: 9px; font-size: .8rem; font-weight: 700; }
+.or-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.or-metrics > div { border: 1px solid rgba(125, 145, 160, .3); border-radius: 10px; padding: 13px; display: grid; gap: 4px; }
+.or-metrics strong { font-size: 1.22rem; }
+.or-metrics span,.or-result small { opacity: .76; font-size: .81rem; }
+.or-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.or-result { border: 1px solid rgba(125, 145, 160, .3); border-radius: 10px; padding: 13px; overflow-wrap: anywhere; }
+.or-result-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 7px; }
+.or-result-head span { font-size: .82rem; opacity: .8; }
+.or-result p { line-height: 1.5; margin: 8px 0; }
+.or-note { padding: 10px; border: 1px solid rgba(180, 83, 9, .3); border-radius: 10px; background: rgba(180, 83, 9, .07); }
+.or-inventory { display: grid; gap: 5px; padding: 8px 0; }
+.or-inventory > div { display: flex; gap: 8px; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid rgba(125, 145, 160, .15); padding: 6px 2px; overflow-wrap: anywhere; }
+.or-inventory span,.or-disclaimer { font-size: .83rem; opacity: .76; }
+.or-panel details ul { padding-left: 22px; }
+@media (max-width: 680px) { .or-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

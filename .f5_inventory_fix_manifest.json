@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "relative": "frontend/src/pages/UniversalAnalysis.tsx",
+      "backup": "0.bak",
+      "original_sha256": "00fa1d4d64a6e0f14210c0bf8828e5f5ac2b65dbb3be318fec58a20b9ec4f659",
+      "installed_sha256": "06af14b120305f7c5cc237a3604a17919549fe9fc13b3feeac0cfe3102c09a9e"
+    },
+    {
+      "relative": "frontend/src/pages/PlatformConfigurationPage.tsx",
+      "backup": "1.bak",
+      "original_sha256": "b6e648cccb52af69a401bb15b4d592aebfc0b642c55728e502d5ff1cfc67ecb9",
+      "installed_sha256": "fae30eafdc67ed5563c8320aa10ddc9f2214116e1a148ee2db5faf13816fd96e"
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+
+.configuration-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* SECTION HEADINGS */
+
+.configuration-section-heading {
+  margin-bottom: 24px;
+}
+
+.configuration-section-heading h2 {
+  margin: 0 0 8px;
+}
+
+.configuration-section-heading p {
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 13px;
+}
+
+/* FIREWALL INFORMATION */
+
+.configuration-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.configuration-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 10px;
+  background: var(--surface-color, #111827);
+  min-width: 0;
+}
+
+.configuration-info-item span {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 12px;
+}
+
+.configuration-info-item strong {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.configuration-risk-critical {
+  color: #ef4444;
+}
+
+.configuration-risk-high {
+  color: #f97316;
+}
+
+.configuration-risk-medium {
+  color: #eab308;
+}
+
+.configuration-risk-low {
+  color: #22c55e;
+}
+
+/* INVENTORY */
+
+.configuration-inventory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.configuration-inventory-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 10px;
+  background: var(--surface-color, #111827);
+  min-width: 0;
+}
+
+.configuration-inventory-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.12);
+  font-size: 22px;
+}
+
+.configuration-inventory-card > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.configuration-inventory-card span {
+  font-size: 12px;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.configuration-inventory-card strong {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+/* INTERFACES TOOLBAR */
+
+.configuration-interfaces-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.configuration-interfaces-toolbar h2 {
+  margin: 0 0 6px;
+}
+
+.configuration-interfaces-toolbar p {
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 13px;
+}
+
+.configuration-interfaces-toolbar input {
+  min-width: 260px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 8px;
+  background: var(--surface-color, #111827);
+  color: inherit;
+  font: inherit;
+}
+
+.configuration-interfaces-toolbar input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* INTERFACE CARDS */
+
+.configuration-interface-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, 340px), 1fr)
+  );
+  gap: 18px;
+}
+
+.configuration-interface-card {
+  padding: 22px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 12px;
+  background: var(--surface-color, #111827);
+  min-width: 0;
+}
+
+.configuration-interface-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.configuration-interface-label {
+  color: #60a5fa;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.configuration-interface-header h3 {
+  margin: 7px 0 0;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.configuration-interface-symbol {
+  font-size: 25px;
+  color: #60a5fa;
+}
+
+.configuration-interface-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.configuration-interface-summary > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color, #334155);
+}
+
+.configuration-interface-summary span {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 13px;
+}
+
+.configuration-interface-summary strong {
+  font-size: 13px;
+  text-align: right;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* EXPANDABLE DETAILS */
+
+.configuration-interface-details {
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color, #334155);
+}
+
+.configuration-interface-details summary {
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.configuration-interface-details dl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.configuration-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color, #334155);
+}
+
+.configuration-detail-row dt {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 12px;
+}
+
+.configuration-detail-row dd {
+  margin: 0;
+  text-align: right;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* EMPTY STATES */
+
+.configuration-empty {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.configuration-empty h2,
+.configuration-empty h3 {
+  margin-top: 0;
+}
+
+.configuration-empty p {
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.6;
+}
+
+.configuration-clear-button {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .configuration-info-grid,
+  .configuration-inventory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .configuration-info-grid,
+  .configuration-inventory {
+    grid-template-columns: 1fr;
+  }
+
+  .configuration-interfaces-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .configuration-interfaces-toolbar input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .configuration-detail-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .configuration-detail-row dd {
+    text-align: left;
+  }
+}

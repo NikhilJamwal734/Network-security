@@ -1,0 +1,30 @@
+{
+  "version": "11.6",
+  "files": {
+    "app/api/main.py": {
+      "original_exists": true,
+      "original_sha256": "805db3bf336eb37513074c675c28c97859ccfc487890f7af8343e70321a4baf8",
+      "new_sha256": "a5846d63e82690ff19036a7a394230dcbbacf79ce0731f0bc749cdc57784ec66"
+    },
+    "app/core/input_hardening.py": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "495c5944d800cfdc08f23388285c25e26c26e527fa88b4dbc6a8b81da2281bc2"
+    },
+    "app/api/hardened_analysis.py": {
+      "original_exists": false,
+      "original_sha256": null,
+      "new_sha256": "18a86a43b76ff6fbc60a8aed29d693e1472ff2c962dcc1429fc3cad87cd87a18"
+    },
+    "frontend/src/api/universal.ts": {
+      "original_exists": true,
+      "original_sha256": "c07caed5e122aa80352a272f7f564a40a53a620ff2ec23bd17be9862d12fef23",
+      "new_sha256": "72a799eac8836b5d5f1fbe6d72dc6cb521d67a0f1028a07d0e5dc9eb8f6e3159"
+    },
+    "frontend/src/utils/normalizedPdf.ts": {
+      "original_exists": true,
+      "original_sha256": "bf0652c24146a4872b5232d650017f315f308acdd0806302994db05878d7250d",
+      "new_sha256": "ed87edf0c769cb310954e56dfd747596c9f7f3b0543ead9c7e843baedc8e94d3"
+    }
+  }
+}

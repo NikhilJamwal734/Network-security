@@ -1,0 +1,352 @@
+
+.findings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* SUMMARY CARDS */
+
+.findings-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.finding-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 12px;
+  background: var(--surface-color, #111827);
+  min-width: 0;
+}
+
+.finding-stat-label {
+  font-size: 13px;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.finding-stat strong {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.finding-stat-critical strong {
+  color: #ef4444;
+}
+
+.finding-stat-high strong {
+  color: #f97316;
+}
+
+.finding-stat-medium strong {
+  color: #eab308;
+}
+
+.finding-stat-low strong {
+  color: #3b82f6;
+}
+
+/* TOOLBAR */
+
+.findings-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.findings-toolbar h2 {
+  margin: 0 0 6px;
+}
+
+.findings-toolbar p {
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 13px;
+}
+
+.findings-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.findings-filters input,
+.findings-filters select {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 8px;
+  background: var(--surface-color, #111827);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+}
+
+.findings-filters input {
+  min-width: 210px;
+}
+
+.findings-filters input:focus,
+.findings-filters select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.findings-clear-button {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.findings-clear-button:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.findings-clear-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* FINDING CARDS */
+
+.findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.finding-card {
+  border: 1px solid var(--border-color, #334155);
+  border-radius: 12px;
+  background: var(--surface-color, #111827);
+  padding: 20px;
+  min-width: 0;
+}
+
+.finding-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.finding-heading {
+  min-width: 0;
+}
+
+.finding-id {
+  display: inline-block;
+  margin-bottom: 7px;
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.finding-heading h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* SEVERITY LABELS */
+
+.finding-severity {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.finding-severity-critical {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.finding-severity-high {
+  color: #fdba74;
+  background: rgba(249, 115, 22, 0.15);
+}
+
+.finding-severity-medium {
+  color: #fde047;
+  background: rgba(234, 179, 8, 0.15);
+}
+
+.finding-severity-low {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.finding-severity-info,
+.finding-severity-unknown {
+  color: #cbd5e1;
+  background: rgba(148, 163, 184, 0.15);
+}
+
+/* CONTENT */
+
+.finding-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.finding-description h4,
+.finding-recommendation h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.finding-description p,
+.finding-recommendation p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.finding-recommendation {
+  padding: 14px 16px;
+  border-left: 3px solid #22c55e;
+  border-radius: 0 8px 8px 0;
+  background: rgba(34, 197, 94, 0.06);
+}
+
+.finding-recommendation h4 {
+  color: #4ade80;
+}
+
+.finding-location {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary, #94a3b8);
+}
+
+/* EXPANDABLE DETAILS */
+
+.finding-details {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color, #334155);
+}
+
+.finding-details summary {
+  cursor: pointer;
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.finding-details dl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.finding-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color, #334155);
+}
+
+.finding-detail-row dt {
+  font-size: 12px;
+  color: var(--text-secondary, #94a3b8);
+  overflow-wrap: anywhere;
+}
+
+.finding-detail-row dd {
+  margin: 0;
+  max-width: 65%;
+  text-align: right;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* EMPTY STATES */
+
+.findings-empty {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.findings-empty h2,
+.findings-empty h3 {
+  margin-top: 0;
+}
+
+.findings-empty p {
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .findings-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .findings-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 768px) {
+  .findings-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .findings-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .findings-filters input,
+  .findings-filters select,
+  .findings-clear-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .finding-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .finding-detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .finding-detail-row dd {
+    max-width: 100%;
+    text-align: left;
+  }
+}

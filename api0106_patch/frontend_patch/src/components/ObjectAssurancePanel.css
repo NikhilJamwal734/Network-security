@@ -1,0 +1,20 @@
+/* Scoped API-010.6 panel styling; no sidebar, theme or global palette overrides. */
+.oa-panel { display: grid; gap: 14px; }
+.oa-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.oa-heading h2 { margin: 0 0 5px; font-size: 1.08rem; }
+.oa-heading p { margin: 0; opacity: .77; font-size: .88rem; line-height: 1.5; }
+.oa-status { border: 1px solid var(--border-color, #cbd5e1); border-radius: 25px; padding: 5px 12px; font-size: .78rem; white-space: nowrap; }
+.oa-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.oa-metrics > div { border: 1px solid var(--border-color, #d1d5db); border-radius: 9px; padding: 11px; display: grid; gap: 3px; }
+.oa-metrics strong { font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+.oa-metrics span { opacity: .8; font-size: .76rem; }
+.oa-list { margin: 0; padding-left: 1.4rem; display: grid; gap: 12px; }
+.oa-entry { padding: 12px 14px; border: 1px solid var(--border-color, #d1d5db); border-radius: 9px; overflow-wrap: anywhere; }
+.oa-entry-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.oa-entry-top span, .oa-entry small { opacity: .75; font-size: .8rem; }
+.oa-entry p { margin: 6px 0; font-size: .86rem; line-height: 1.5; }
+.oa-note { margin: 0; padding: 10px 12px; border-left: 3px solid #94a3b8; line-height: 1.5; font-size: .85rem; }
+.oa-limitations { font-size: .84rem; }
+.oa-limitations ul { padding-left: 20px; line-height: 1.5; }
+.oa-disclaimer { font-size: .78rem; margin: 0; opacity: .75; }
+@media (max-width: 720px) { .oa-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

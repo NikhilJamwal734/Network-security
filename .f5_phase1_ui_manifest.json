@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "files": {
+    "frontend/src/pages/UniversalAnalysis.tsx": {
+      "created": false,
+      "installed_sha256": "00fa1d4d64a6e0f14210c0bf8828e5f5ac2b65dbb3be318fec58a20b9ec4f659",
+      "original_sha256": "a85194a759732e8ee62273a3c19725001791351854b2f601dd77aabbe39bf2d5"
+    },
+    "frontend/src/utils/normalizedPdf.ts": {
+      "created": false,
+      "installed_sha256": "90022b190715b012856b66488a14b2a55d0bb720390c2808d882acf8a67fa27a",
+      "original_sha256": "ed87edf0c769cb310954e56dfd747596c9f7f3b0543ead9c7e843baedc8e94d3"
+    },
+    "frontend/src/api/f5Phase1.ts": {
+      "created": true,
+      "installed_sha256": "1f8b819da0621062f550ab36c70d8f1333ca0482d95afe2b0dd696aeb909c5e1",
+      "original_sha256": null
+    }
+  }
+}

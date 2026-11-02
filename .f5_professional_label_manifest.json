@@ -1,0 +1,6 @@
+{
+  "target": "frontend/src/api/f5Phase1.ts",
+  "original_sha256": "02abfbbcf3c93ac7761962e678b10734d67e8af9fe95a3efaed9d221a774bae4",
+  "patched_sha256": "5e9b945161e83fd7a31b02705c4149d638fcc014dee2a594696d9e1f864b6451",
+  "label": "F5 BIG-IP LTM & Advanced WAF"
+}

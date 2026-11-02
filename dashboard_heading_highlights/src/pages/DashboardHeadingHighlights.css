@@ -1,0 +1,100 @@
+/* Dashboard heading highlights: visual-only, scoped to the two Dashboard pages.
+   No analysis cards, finding data, navigation, or PDF styles are changed. */
+
+/* Give the page titles a stronger but readable security-console identity. */
+.ua-page > .ua-heading h1,
+.dashboard .dashboard-header h1 {
+  color: #73e2d2;
+  background: linear-gradient(100deg, #38d7b6 0%, #77bbff 54%, #bca0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.025em;
+}
+
+/* All section colors are controlled by their own container, never globally. */
+.ua-page .ua-panel,
+.dashboard .panel {
+  --dbh-accent-rgb: 52, 204, 193;
+}
+
+/* Apply colorful, compact heading ribbons—not large banners—to all major reviews. */
+.ua-page .ua-panel > h2,
+.ua-page .ua-panel > .ua-section-heading h2,
+.ua-page .ua-panel > .ids109-heading h2,
+.ua-page .ua-panel > .con110-heading h2,
+.ua-page .ua-panel > .acc111-heading h2,
+.ua-page .ua-panel > .rpt112-heading h2,
+.dashboard .panel-header h2 {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.48rem 0.82rem;
+  border: 0;
+  border-left: 3px solid rgb(var(--dbh-accent-rgb));
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: linear-gradient(95deg,
+    rgba(var(--dbh-accent-rgb), 0.20) 0%,
+    rgba(var(--dbh-accent-rgb), 0.045) 100%);
+  color: var(--text, #e9f5ff);
+  box-shadow: inset 0 0 0 1px rgba(var(--dbh-accent-rgb), 0.12);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+/* Preserve the legacy card's label-and-description spacing. */
+.dashboard .panel-header h2 {
+  margin: 0;
+}
+
+/* Harmonized accent palette: teal, azure, violet, and amber. */
+.ua-page .ua-panel:has(> .ua-section-heading #ua-upload-heading) {
+  --dbh-accent-rgb: 64, 174, 244;
+}
+.ua-page .ua-results > .ua-panel:nth-of-type(3n + 1) {
+  --dbh-accent-rgb: 44, 207, 177;
+}
+.ua-page .ua-results > .ua-panel:nth-of-type(3n + 2) {
+  --dbh-accent-rgb: 100, 160, 255;
+}
+.ua-page .ua-results > .ua-panel:nth-of-type(3n + 3) {
+  --dbh-accent-rgb: 175, 129, 244;
+}
+.ua-page .ua-asa-panel {
+  --dbh-accent-rgb: 83, 179, 247;
+}
+.ua-page .ids109-panel {
+  --dbh-accent-rgb: 73, 190, 247;
+}
+.ua-page .con110-panel {
+  --dbh-accent-rgb: 160, 133, 249;
+}
+.ua-page .acc111-panel {
+  --dbh-accent-rgb: 46, 201, 175;
+}
+.ua-page .rpt112-panel {
+  --dbh-accent-rgb: 241, 174, 77;
+}
+.ua-page .ua-panel:has(> #ua-warnings) {
+  --dbh-accent-rgb: 245, 171, 74;
+}
+.dashboard .dashboard-grid > .panel:nth-child(2n) {
+  --dbh-accent-rgb: 154, 140, 248;
+}
+.dashboard .dashboard-analysis-grid > .panel:nth-child(2n) {
+  --dbh-accent-rgb: 79, 167, 249;
+}
+
+/* Narrow screens: prevent long headings from stretching the layout. */
+@media (max-width: 600px) {
+  .ua-page .ua-panel > h2,
+  .ua-page .ua-panel > .ua-section-heading h2,
+  .ua-page .ua-panel > :is(.ids109-heading, .con110-heading, .acc111-heading, .rpt112-heading) h2,
+  .dashboard .panel-header h2 {
+    padding: 0.42rem 0.65rem;
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+  }
+}

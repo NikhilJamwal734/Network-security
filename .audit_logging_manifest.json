@@ -1,0 +1,17 @@
+{
+  "patch": "audit-logging-v1",
+  "files": {
+    "app/api/main.py": {
+      "installed_sha256": "a8f8bde1520345db96aae3c0da823d5efc4016f8b2fd74d4eb5f2b5a6c1183e0",
+      "original_sha256": "054e3b460b8a24512f4d789568949156b4ea2ba7b1cd1965b46f75a1a4f9ab49"
+    },
+    "app/api/hardened_analysis.py": {
+      "installed_sha256": "b1901e62b54a74de43184ecbd2fff0853284253be02fd9db17210260d884a16c",
+      "original_sha256": "18a86a43b76ff6fbc60a8aed29d693e1472ff2c962dcc1429fc3cad87cd87a18"
+    },
+    "app/core/audit_logging.py": {
+      "installed_sha256": "0a51f4ec912313c471cae102752999b816e1520f51e196a6b0001633e2cd9992",
+      "original_sha256": null
+    }
+  }
+}

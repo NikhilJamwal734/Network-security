@@ -1,0 +1,20 @@
+/* Platform-independent explanatory text for review score and finding severity. */
+.assessment-scale-help {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--ua-border, #64748b);
+  border-radius: 8px;
+  background: rgba(148, 163, 184, 0.075);
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.assessment-scale-help p { margin: 0; }
+.assessment-scale-help p + p { margin-top: 6px; }
+.assessment-scale-help strong { color: var(--text-primary, #e7eef9); }
+.advanced-assessment-score .assessment-scale-help {
+  margin-top: 4px;
+  font-size: 0.82rem;
+}
+.ua-page .usc-legend-wrap > .assessment-scale-help { margin: 0 0 14px; }

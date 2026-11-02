@@ -1,0 +1,48 @@
+/* Report exports are mounted only after a successful analysis.
+   Highlight the available buttons, but do not recolor disabled controls. */
+.app .topbar .fa-topbar-downloads button:not(:disabled),
+.app .topbar .fa-topbar-downloads a:not([aria-disabled="true"]),
+.app .topbar .normalized-downloads button:not(:disabled),
+.app .normalized-downloads button:not(:disabled),
+.app .ua-results button.ua-download-ready:not(:disabled),
+html[data-fa-theme] .app .topbar .fa-topbar-downloads button:not(:disabled),
+html[data-fa-theme] .app .topbar .fa-topbar-downloads a:not([aria-disabled="true"]),
+html[data-fa-theme] .app .normalized-downloads button:not(:disabled),
+html[data-fa-theme] .app .ua-results button.ua-download-ready:not(:disabled) {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  border: 1px solid #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 14px rgba(185, 28, 28, 0.25) !important;
+  font-weight: 700;
+  opacity: 1;
+  transition: background 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.app .topbar .fa-topbar-downloads button:not(:disabled):hover,
+.app .topbar .fa-topbar-downloads a:not([aria-disabled="true"]):hover,
+.app .normalized-downloads button:not(:disabled):hover,
+.app .ua-results button.ua-download-ready:not(:disabled):hover,
+html[data-fa-theme] .app .topbar .fa-topbar-downloads button:not(:disabled):hover,
+html[data-fa-theme] .app .normalized-downloads button:not(:disabled):hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 5px 18px rgba(220, 38, 38, 0.34) !important;
+  transform: translateY(-1px);
+}
+
+.app .topbar .fa-topbar-downloads button:focus-visible,
+.app .topbar .fa-topbar-downloads a:focus-visible,
+.app .normalized-downloads button:focus-visible,
+.app .ua-results button.ua-download-ready:focus-visible {
+  outline: 3px solid #fca5a5 !important;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app .topbar .fa-topbar-downloads button,
+  .app .normalized-downloads button,
+  .app .ua-results button.ua-download-ready {
+    transition: none;
+    transform: none !important;
+  }
+}

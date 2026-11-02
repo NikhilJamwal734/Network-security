@@ -1,0 +1,9 @@
+suricata-version: "8.0"
+rule-files:
+  - local.rules
+vars:
+  address-groups:
+    HOME_NET: "[192.0.2.0/24]"
+outputs:
+  - eve-log:
+      enabled: yes

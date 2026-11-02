@@ -1,0 +1,57 @@
+/* API-010.1 full-height emerald navigation surface, independent of dashboard state.
+   This stylesheet must load after Theme.css, AppResponsive.css and index.css.
+   Preserve severity and report colors in the main content. */
+html .app aside.sidebar,
+html[data-fa-theme] .app aside.sidebar,
+html .app .sidebar.fa-sidebar-open,
+html[data-fa-theme] .app .sidebar.fa-sidebar-open {
+  --fa-t-sidebar: #064e3b;
+  --fa-sidebar-text: #f0fdf4;
+  --fa-sidebar-muted: #bbf7d0;
+  background: #064e3b !important;
+  background-color: #064e3b !important;
+  color: var(--fa-sidebar-text) !important;
+  border-right: 1px solid #047857 !important;
+  min-height: 100vh;
+}
+html .app .sidebar .brand,
+html .app .sidebar .navigation,
+html .app .sidebar .sidebar-footer,
+html .app .sidebar .sidebar-bottom,
+html .app .sidebar .nav-section {
+  background-color: transparent;
+}
+html .app .sidebar .brand-title,
+html .app .sidebar .nav-item,
+html .app .sidebar .nav-link,
+html .app .sidebar a,
+html .app .sidebar button {
+  color: #f0fdf4;
+}
+html .app .sidebar .brand-subtitle,
+html .app .sidebar .nav-section-title,
+html .app .sidebar .version,
+html .app .sidebar .status-detail {
+  color: #bbf7d0;
+}
+html .app .sidebar .nav-item:hover,
+html .app .sidebar .nav-link:hover,
+html .app .sidebar .nav-item:focus-visible {
+  color: #ffffff;
+  background: #047857;
+}
+html .app .sidebar .nav-item.active,
+html .app .sidebar .nav-item[aria-current="page"],
+html .app .sidebar .nav-link.active,
+html .app .sidebar .nav-link[aria-current="page"] {
+  background: #059669;
+  color: #ffffff;
+  border-color: #6ee7b7;
+  font-weight: 750;
+}
+html .app .sidebar .brand-mark {
+  background: #065f46;
+  border-color: #34d399;
+  color: #d1fae5;
+}
+html .app .sidebar .status-dot { background: #a7f3d0; }

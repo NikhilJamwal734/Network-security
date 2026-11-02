@@ -1,0 +1,21 @@
+.advanced-assessment { display: grid; gap: 18px; }
+.advanced-assessment-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+.advanced-assessment-heading p { margin:6px 0 0; color:var(--text-secondary,#94a3b8); }
+.advanced-assessment-tag { padding:6px 12px; border-radius:999px; background:rgba(251,191,36,.12); color:#fcd34d; border:1px solid rgba(251,191,36,.3); font-size:.8rem; white-space:nowrap; }
+.advanced-assessment-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
+.advanced-assessment-metrics > div { min-width:0; padding:18px; border:1px solid var(--border-color,#32465b); border-radius:14px; background:rgba(107,139,167,.07); display:flex; flex-direction:column; gap:8px; }
+.advanced-assessment-metrics span,.advanced-assessment-metrics small { color:var(--text-secondary,#94a3b8); }
+.advanced-assessment-metrics strong { font-size:clamp(1.15rem,2.3vw,1.85rem); line-height:1.15; overflow-wrap:anywhere; }
+.advanced-assessment-metrics .advanced-assessment-score strong { color:#60a5fa; font-size:2.2rem; }
+.advanced-assessment-score strong small { font-size:1rem; font-weight:400; }
+.advanced-assessment-caution { padding:14px 16px; margin:0; border-left:3px solid #f59e0b; background:rgba(245,158,11,.06); border-radius:8px; line-height:1.55; }
+.advanced-assessment-observations { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+.advanced-assessment-observation { min-width:0; border:1px solid var(--border-color,#32465b); border-radius:12px; padding:15px; }
+.advanced-assessment-observation-head { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.advanced-assessment-observation p { margin:12px 0; line-height:1.5; }
+.advanced-assessment-observation small { color:var(--text-secondary,#94a3b8); overflow-wrap:anywhere; }
+.advanced-assessment-status { font-size:.76rem; border-radius:999px; padding:4px 8px; background:rgba(148,163,184,.13); color:#cbd5e1; }
+.advanced-assessment-status-observed { background:rgba(45,212,191,.12); color:#5eead4; }
+.advanced-assessment-status-not_assessed { background:rgba(251,191,36,.12); color:#fcd34d; }
+.advanced-assessment-unassessed { overflow-wrap:anywhere; line-height:1.6; margin:0; }
+@media (max-width:600px) { .advanced-assessment-metrics,.advanced-assessment-observations {grid-template-columns:minmax(0,1fr)} }

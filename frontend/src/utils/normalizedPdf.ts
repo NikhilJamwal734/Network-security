@@ -1,0 +1,1147 @@
+/**
+ * Professional, multi-page security configuration review for all platforms.
+ *
+ * This file is presentation-only. It never executes uploaded configuration
+ * text, traverses configuration paths, or invents security conclusions.
+ * Only the normalized report returned by the API is rendered as PDF text.
+ *
+ * Keep jsPDF behind a dynamic import so it loads only when a PDF is requested.
+ */
+import type { jsPDF } from "jspdf";
+import { inspectPdfExport, downloadVerifiedPdf } from "./pdfExportIntegrity";
+import type { NormalizedReport, Severity } from "../api/universal";
+import type { F5Phase1Review } from "../api/f5Phase1";
+
+type Pdf = jsPDF;
+type RGB = readonly [number, number, number];
+
+const COLORS = {
+  navy: [17, 34, 59] as RGB,
+  blue: [32, 77, 128] as RGB,
+  ink: [35, 49, 65] as RGB,
+  muted: [104, 119, 138] as RGB,
+  light: [245, 248, 251] as RGB,
+  line: [217, 226, 235] as RGB,
+  teal: [22, 160, 154] as RGB,
+  white: [255, 255, 255] as RGB,
+};
+
+const SEVERITIES: readonly Severity[] = [
+  "critical", "high", "medium", "low", "info", "unknown",
+];
+const SEVERITY_COLORS: Record<Severity, RGB> = {
+  critical: [185, 28, 28],
+  high: [221, 93, 39],
+  medium: [184, 119, 20],
+  low: [41, 111, 183],
+  info: [16, 139, 134],
+  unknown: [110, 119, 135],
+};
+
+const PAGE_MARGIN = 44;
+const MAX_FINDINGS_IN_PDF = 1500;
+const MAX_OBSERVATIONS_IN_PDF = 1000;
+
+function safeText(value: unknown, limit = 2400): string {
+  const text = String(value ?? "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, " ")
+    .trim();
+  if (text.length <= limit) return text;
+  return `${text.slice(0, limit)}... [shortened for readability]`;
+}
+
+function label(value: string): string {
+  return value.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function short(value: unknown, limit: number): string {
+  const result = safeText(value, 2000).replace(/\s+/g, " ");
+  return result.length <= limit ? result : `${result.slice(0, limit - 3)}...`;
+}
+
+function setFill(pdf: Pdf, c: RGB): void {
+  pdf.setFillColor(c[0], c[1], c[2]);
+}
+function setStroke(pdf: Pdf, c: RGB): void {
+  pdf.setDrawColor(c[0], c[1], c[2]);
+}
+function setInk(pdf: Pdf, c: RGB): void {
+  pdf.setTextColor(c[0], c[1], c[2]);
+}
+
+export function normalizedFilename(name: string): string {
+  const base = name.trim().replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80);
+  return base || "configuration";
+}
+
+export function downloadNormalizedJson(report: NormalizedReport, filename: string): void {
+  const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `${normalizedFilename(filename)}.normalized.json`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/**
+ * The PDF builder is separately exported to support tests and integrations;
+ * it does not save files or touch browser APIs.
+ */
+export function renderNormalizedPdf(
+  pdf: Pdf,
+  report: NormalizedReport,
+  filename: string,
+  now: Date = new Date(),
+): void {
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const contentWidth = pageWidth - PAGE_MARGIN * 2;
+  const safePlatform = short(report.platform.platform_id, 25).toUpperCase();
+  const stamp = now.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  const reference = `NSCA-${safePlatform}-${stamp}`;
+  const dateString = `${now.toISOString().replace("T", " ").slice(0, 19)} UTC`;
+  let cursor = 0;
+  let sectionIndex = 0;
+  const bodyBottom = pageHeight - 53;
+
+  pdf.setProperties({
+    title: `${short(report.platform.display_name, 95)} - Security Configuration Assessment`,
+    subject: "Static network security configuration analysis",
+    author: "Network Security Configuration Analyzer",
+    keywords: "security, configuration, assessment, static analysis",
+  });
+
+  function pageHeader(first = false): void {
+    if (first) {
+      setFill(pdf, COLORS.navy);
+      pdf.rect(0, 0, pageWidth, 120, "F");
+      setFill(pdf, COLORS.teal);
+      pdf.rect(0, 120, pageWidth, 5, "F");
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(11);
+      setInk(pdf, [103, 218, 212]);
+      pdf.text("NETWORK SECURITY", PAGE_MARGIN, 38);
+      pdf.setFontSize(20);
+      setInk(pdf, COLORS.white);
+      pdf.text("CONFIGURATION ASSESSMENT", PAGE_MARGIN, 68);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(9);
+      setInk(pdf, [211, 226, 236]);
+      pdf.text("Evidence-based static review  |  Firewall  /  IDS  /  IPS", PAGE_MARGIN, 90);
+      cursor = 151;
+    } else {
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
+      setInk(pdf, COLORS.blue);
+      pdf.text("NETWORK SECURITY  /  CONFIGURATION REVIEW", PAGE_MARGIN, 32);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7.5);
+      setInk(pdf, COLORS.muted);
+      pdf.text(short(reference, 48), pageWidth - PAGE_MARGIN, 32, { align: "right" });
+      setStroke(pdf, COLORS.line);
+      pdf.setLineWidth(0.7);
+      pdf.line(PAGE_MARGIN, 42, pageWidth - PAGE_MARGIN, 42);
+      cursor = 64;
+    }
+  }
+
+  function nextPage(): void {
+    pdf.addPage();
+    pageHeader();
+  }
+
+  function ensure(height: number): void {
+    if (cursor + height > bodyBottom) nextPage();
+  }
+
+  /** Draw wrapped plain text one line at a time, paging safely. */
+  function text(
+    content: unknown,
+    options: {
+      size?: number;
+      indent?: number;
+      color?: RGB;
+      bold?: boolean;
+      spaceAfter?: number;
+      maxChars?: number;
+    } = {},
+  ): void {
+    const size = options.size ?? 9.4;
+    const x = PAGE_MARGIN + (options.indent ?? 0);
+    const maxWidth = pageWidth - PAGE_MARGIN - x;
+    const value = safeText(content, options.maxChars ?? 2400);
+    pdf.setFont("helvetica", options.bold ? "bold" : "normal");
+    pdf.setFontSize(size);
+    setInk(pdf, options.color ?? COLORS.ink);
+    const lines = pdf.splitTextToSize(value || " ", maxWidth) as string[];
+    const lineHeight = size * 1.48;
+    for (const part of lines.length ? lines : [" "]) {
+      ensure(lineHeight + 3);
+      pdf.text(part, x, cursor);
+      cursor += lineHeight;
+    }
+    cursor += options.spaceAfter ?? 5;
+  }
+
+  function section(title: string): void {
+    ensure(51);
+    cursor += 15;
+    sectionIndex += 1;
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(12.5);
+    setInk(pdf, COLORS.teal);
+    pdf.text(String(sectionIndex).padStart(2, "0"), PAGE_MARGIN, cursor);
+    pdf.setFontSize(12.5);
+    setInk(pdf, COLORS.navy);
+    pdf.text(title.toUpperCase(), PAGE_MARGIN + 29, cursor);
+    cursor += 10;
+    setStroke(pdf, COLORS.line);
+    pdf.setLineWidth(0.6);
+    pdf.line(PAGE_MARGIN, cursor, pageWidth - PAGE_MARGIN, cursor);
+    cursor += 21;
+  }
+
+  function metricBox(x: number, y: number, width: number, name: string, value: string, accent: RGB): void {
+    setFill(pdf, COLORS.light);
+    pdf.roundedRect(x, y, width, 59, 6, 6, "F");
+    setFill(pdf, accent);
+    pdf.rect(x, y, 3, 59, "F");
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(8);
+    setInk(pdf, COLORS.muted);
+    pdf.text(name, x + 13, y + 20);
+    pdf.setFontSize(13);
+    setInk(pdf, COLORS.ink);
+    const fitted = pdf.splitTextToSize(short(value, 65), width - 20) as string[];
+    pdf.text(fitted[0] || "-", x + 13, y + 42);
+  }
+
+  function severityTag(severity: Severity, x: number, y: number): void {
+    const color = SEVERITY_COLORS[severity];
+    setFill(pdf, color);
+    pdf.roundedRect(x, y - 11, 69, 16, 4, 4, "F");
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7.4);
+    setInk(pdf, COLORS.white);
+    pdf.text(severity.toUpperCase(), x + 34.5, y, { align: "center" });
+  }
+
+  function evidenceLine(finding: NormalizedReport["findings"][number]): string {
+    const bits = [`Code: ${safeText(finding.code, 120)}`, `ID: ${safeText(finding.finding_id, 140)}`];
+    if (finding.evidence.line_number !== null) bits.push(`Line: ${finding.evidence.line_number}`);
+    if (finding.evidence.rule_id !== null) bits.push(`Rule: ${safeText(finding.evidence.rule_id, 80)}`);
+    if (finding.evidence.related_rule_id !== null) bits.push(`Related: ${safeText(finding.evidence.related_rule_id, 80)}`);
+    return bits.join("  |  ");
+  }
+
+  // Report header and metadata.
+  pageHeader(true);
+  text(`REPORT REFERENCE  ${reference}`, { bold: true, size: 8.4, color: COLORS.blue, spaceAfter: 9 });
+  const metadata = [
+    `Platform: ${report.platform.display_name} (${report.platform.family.toUpperCase()})`,
+    `Configuration: ${filename}`,
+    `Generated: ${dateString}    |    Detection: ${report.platform.detection_method ?? "Unspecified"}`,
+  ];
+  if (report.platform.hostname) metadata.push(`Hostname: ${report.platform.hostname}`);
+  for (const item of metadata) text(item, { size: 9, spaceAfter: 2 });
+  cursor += 8;
+  setFill(pdf, COLORS.light);
+  ensure(33);
+  pdf.roundedRect(PAGE_MARGIN, cursor - 9, contentWidth, 33, 5, 5, "F");
+  pdf.setFont("helvetica", "normal");
+  pdf.setFontSize(8.2);
+  setInk(pdf, COLORS.muted);
+  pdf.text("Scope: Uploaded configuration text only. Findings reflect implemented checks, not a full security audit.", PAGE_MARGIN + 11, cursor + 11);
+  cursor += 41;
+
+  section("Executive summary");
+  ensure(80);
+  const gap = 9;
+  const boxWidth = (contentWidth - gap * 3) / 4;
+  const metrics = [
+    ["FINDINGS", String(report.summary.total_findings), COLORS.blue],
+    ["RISK LEVEL", report.summary.risk_level ?? "Not assigned", COLORS.blue],
+    ["SECURITY SCORE", report.summary.security_score === null ? "Not scored" : `${report.summary.security_score}/100`, COLORS.teal],
+    ["REVIEW SCORE", report.assessment ? `${report.assessment.review_score.value}/100*` : "Not available", COLORS.teal],
+  ] as const;
+  metrics.forEach(([name, value, color], index) => metricBox(
+    PAGE_MARGIN + index * (boxWidth + gap), cursor - 8, boxWidth, name, value, color,
+  ));
+  cursor += 75;
+  if (report.assessment) {
+    text("Review score (0-100): higher means fewer concerns found in assessed checks. Missing coverage may cap this provisional indicator; it is not a security guarantee.", {
+      size: 8.1, color: COLORS.muted, spaceAfter: 4,
+    });
+  }
+  text("Severity indicates how serious each finding is, not another numeric score. " +
+    "Scale: Info -> Low -> Medium -> High -> Critical; Unknown is unclassified.", {
+    size: 8.1, color: COLORS.muted, spaceAfter: 9,
+  });
+  text("SEVERITY BREAKDOWN", { size: 8.7, bold: true, color: COLORS.navy, spaceAfter: 9 });
+  ensure(51);
+  const sevWidth = (contentWidth - 5 * 7) / 6;
+  SEVERITIES.forEach((severity, i) => {
+    const x = PAGE_MARGIN + i * (sevWidth + 7);
+    const count = report.summary.severity_counts[severity] ?? 0;
+    setFill(pdf, COLORS.light);
+    pdf.roundedRect(x, cursor - 7, sevWidth, 43, 5, 5, "F");
+    setFill(pdf, SEVERITY_COLORS[severity]);
+    pdf.rect(x, cursor - 7, sevWidth, 3, "F");
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7.7);
+    setInk(pdf, COLORS.muted);
+    pdf.text(label(severity), x + 7, cursor + 12);
+    pdf.setFontSize(12.5);
+    setInk(pdf, COLORS.ink);
+    pdf.text(String(count), x + 7, cursor + 28);
+  });
+  cursor += 53;
+
+  const findings = report.findings.slice(0, MAX_FINDINGS_IN_PDF);
+  section("Findings register");
+  if (!findings.length) {
+    text("No findings were produced by the implemented checks.", { bold: true });
+    text("Important: zero detected findings does not establish that the configuration or deployment is secure.", {
+      color: COLORS.muted, size: 8.5,
+    });
+  } else {
+    text("Reference each item by its serial number (F-001, F-002, ...). Full descriptions follow.", {
+      color: COLORS.muted, size: 8.5,
+    });
+    for (let i = 0; i < findings.length; i += 1) {
+      const finding = findings[i];
+      ensure(27);
+      const top = cursor - 10;
+      if (i % 2 === 0) {
+        setFill(pdf, COLORS.light);
+        pdf.roundedRect(PAGE_MARGIN, top, contentWidth, 27, 3, 3, "F");
+      }
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10);
+      setInk(pdf, COLORS.blue);
+      pdf.text(`F-${String(i + 1).padStart(3, "0")}`, PAGE_MARGIN + 8, top + 18);
+      severityTag(finding.severity, PAGE_MARGIN + 58, top + 17);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(10);
+      setInk(pdf, COLORS.ink);
+      const titleWidth = contentWidth - 148;
+      const title = pdf.splitTextToSize(short(finding.title, 165), titleWidth) as string[];
+      pdf.text(title[0] || "Untitled finding", PAGE_MARGIN + 142, top + 17);
+      cursor += 28;
+    }
+    cursor += 5;
+  }
+  if (report.findings.length > findings.length) {
+    text(`PDF shows the first ${findings.length} of ${report.findings.length} findings. The remaining findings can be reviewed in the application.`, {
+      bold: true, color: COLORS.blue, size: 9,
+    });
+  }
+
+  if (findings.length) {
+    section("Finding details and recommendations");
+    findings.forEach((finding, i) => {
+      ensure(96);
+      const top = cursor - 9;
+      setFill(pdf, COLORS.light);
+      pdf.roundedRect(PAGE_MARGIN, top, contentWidth, 43, 5, 5, "F");
+      setFill(pdf, SEVERITY_COLORS[finding.severity]);
+      pdf.rect(PAGE_MARGIN, top, 4, 43, "F");
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(11.2);
+      setInk(pdf, COLORS.navy);
+      pdf.text(`F-${String(i + 1).padStart(3, "0")}`, PAGE_MARGIN + 11, top + 19);
+      severityTag(finding.severity, PAGE_MARGIN + 66, top + 19);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8.2);
+      setInk(pdf, COLORS.muted);
+      pdf.text(short(finding.code, 50), PAGE_MARGIN + 11, top + 34);
+      cursor += 53;
+      text(finding.title, { bold: true, size: 11.2, spaceAfter: 8 });
+      text("DESCRIPTION", { bold: true, color: COLORS.blue, size: 8, spaceAfter: 2 });
+      text(finding.description, { indent: 10, size: 9.1, spaceAfter: 8 });
+      if (finding.recommendation) {
+        text("RECOMMENDATION", { bold: true, color: COLORS.blue, size: 8, spaceAfter: 2 });
+        text(finding.recommendation, { indent: 10, size: 9.1, spaceAfter: 8 });
+      }
+      text("SOURCE REFERENCE", { bold: true, color: COLORS.blue, size: 8, spaceAfter: 2 });
+      text(evidenceLine(finding), { indent: 10, color: COLORS.muted, size: 8.1, spaceAfter: 6 });
+      ensure(15);
+      setStroke(pdf, COLORS.line);
+      pdf.line(PAGE_MARGIN, cursor, pageWidth - PAGE_MARGIN, cursor);
+      cursor += 14;
+    });
+  }
+
+  if (report.assessment) {
+    section("Configuration review evidence");
+    const assessment = report.assessment;
+    text(`Provisional review score: ${assessment.review_score.value}/${assessment.review_score.maximum}   |   Priority: ${label(assessment.review_score.priority)}`, {
+      bold: true, size: 9.6,
+    });
+    text(assessment.review_score.interpretation, { color: COLORS.muted, size: 8.7 });
+    const observations = assessment.observations.slice(0, MAX_OBSERVATIONS_IN_PDF);
+    observations.forEach((obs, i) => {
+      ensure(55);
+      text(`O-${String(i + 1).padStart(2, "0")}  ${obs.title}  [${label(obs.status)}]`, {
+        bold: true, size: 9.4, color: COLORS.navy, spaceAfter: 2,
+      });
+      text(obs.detail, { indent: 12, size: 8.8, spaceAfter: 1 });
+      text(`Evidence field: ${obs.evidence.source_field}${obs.evidence.line_number === null ? "" : `  |  Line ${obs.evidence.line_number}`}`, {
+        indent: 12, color: COLORS.muted, size: 8, spaceAfter: 10,
+      });
+    });
+    if (assessment.observations.length > observations.length) {
+      text(`${assessment.observations.length - observations.length} additional observations not included in this PDF; review them in the application.`, {
+        color: COLORS.muted, size: 8.2,
+      });
+    }
+    text(assessment.notice, { size: 8.4, color: COLORS.muted });
+  }
+
+  if (report.vendor_review) {
+    section("Vendor-specific supplemental review");
+    if (report.vendor_review.precision) {
+      text(`Precision review: ${report.vendor_review.precision.suppressed_preliminary_checks} preliminary observations removed; ${report.vendor_review.precision.additional_evidence_checks} additional checks added.`, {
+        size: 8.5, color: COLORS.muted, spaceAfter: 7,
+      });
+    }
+    text("The following extra review observations are not included in the original findings, severity totals, or provisional score.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 8,
+    });
+    report.vendor_review.checks.forEach((item, i) => {
+      ensure(64);
+      text(`V-${String(i + 1).padStart(3, "0")}  ${item.title}  [${item.severity}]`, {
+        bold: true, size: 9.6, color: COLORS.navy, spaceAfter: 3,
+      });
+      text(item.detail, { indent: 10, size: 8.6, spaceAfter: 5 });
+      text(`Recommendation: ${item.recommendation}`, { indent: 10, size: 8.6, spaceAfter: 4 });
+      text(`${item.code} | Line: ${item.line_number ?? "Not available"} | Rule/object: ${item.rule_id ?? "N/A"}`, {
+        indent: 10, size: 8, color: COLORS.muted, spaceAfter: 12,
+      });
+    });
+    report.vendor_review.limitations.forEach((limitation) => {
+      text(`Scope: ${limitation}`, { size: 8.2, color: COLORS.muted, spaceAfter: 5 });
+    });
+    text(report.vendor_review.interpretation, { size: 8.4, color: COLORS.muted, spaceAfter: 7 });
+  }
+
+  if (report.rule_correlation) {
+    section("Rule correlation and conflict review");
+    text("Advisory correlation of supported rule selectors and headers. These candidates do not alter findings, severity totals, or scores.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 7,
+    });
+    text(`Rules compared: ${report.rule_correlation.summary.eligible_rules} | Candidate pairs: ${report.rule_correlation.summary.candidate_pairs} | Unassessed: ${report.rule_correlation.summary.rules_not_correlated}`, {
+      size: 8.5, spaceAfter: 8,
+    });
+    report.rule_correlation.pairs.forEach((item) => {
+      ensure(68);
+      text(`${item.correlation_id}  ${item.title}  [${item.kind}]`, {
+        bold: true, size: 9.6, color: COLORS.navy, spaceAfter: 3,
+      });
+      text(item.detail, { indent: 10, size: 8.5, spaceAfter: 5 });
+      text(`Review action: ${item.recommendation}`, { indent: 10, size: 8.5, spaceAfter: 4 });
+      text(`Source lines: ${item.evidence.related_line_number}, ${item.evidence.line_number} | References: ${item.evidence.related_rule_id}, ${item.evidence.rule_id} | ${item.confidence}`, {
+        indent: 10, size: 8, color: COLORS.muted, spaceAfter: 11,
+      });
+    });
+    report.rule_correlation.limitations.forEach((limit) => {
+      text(`Scope: ${limit}`, { size: 8.1, color: COLORS.muted, spaceAfter: 5 });
+    });
+  }
+
+  if (report.correlation_assurance) {
+    section("Correlation evidence and ordering review");
+    text("Advisory source-reference and ASA ordering checks. This does not confirm effective rule behavior or change security scores.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 7,
+    });
+    const assurance = report.correlation_assurance;
+    text(`Pairs reviewed: ${assurance.summary.pairs_reviewed} | References located: ${assurance.summary.evidence_present} | ASA order contradictions: ${assurance.summary.ordering_contradictions}`, {
+      size: 8.5, spaceAfter: 9,
+    });
+    assurance.items.forEach((item) => {
+      ensure(60);
+      text(`${item.correlation_id}  ${item.status.replace(/_/g, " ")}`, {
+        bold: true, size: 9.4, color: COLORS.navy, spaceAfter: 3,
+      });
+      text(item.explanation, { indent: 10, size: 8.4, spaceAfter: 3 });
+      text(`Next check: ${item.next_action}`, { indent: 10, size: 8.4, spaceAfter: 5 });
+      text(`Source lines: ${item.related_line_number ?? "unknown"}, ${item.line_number ?? "unknown"} | ${item.evidence_present ? "located" : "not confirmed"}`, {
+        indent: 10, size: 8.1, color: COLORS.muted, spaceAfter: 9,
+      });
+    });
+    assurance.limitations.forEach((limit) => {
+      text(`Scope: ${limit}`, { size: 8, color: COLORS.muted, spaceAfter: 4 });
+    });
+  }
+
+  if (report.object_resolution) {
+    section("Network object resolution and policy selectors");
+    text("Limited IPv4 object expansion, not verified effective policy. Results are supplemental and do not affect existing findings or scores.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 7,
+    });
+    const resolved = report.object_resolution;
+    text(`Objects resolved: ${resolved.summary.definitions_resolved} | Unresolved: ${resolved.summary.definitions_unresolved} | Rules parsed: ${resolved.summary.rules_with_resolved_selectors} | Correlation candidates: ${resolved.summary.candidate_pairs}`, {
+      size: 8.7, spaceAfter: 8,
+    });
+    resolved.pairs.forEach((pair) => {
+      ensure(65);
+      text(`${pair.correlation_id}  ${pair.kind.replace(/_/g, " ")}`, {
+        bold: true, size: 9.4, color: COLORS.navy, spaceAfter: 4,
+      });
+      text(pair.explanation, { indent: 10, size: 8.3, spaceAfter: 4 });
+      text(`Source lines: ${pair.evidence.related_line_number}, ${pair.evidence.line_number} | ${pair.order_status.replace(/_/g, " ")}`, {
+        indent: 10, size: 8.1, color: COLORS.muted, spaceAfter: 4,
+      });
+      text(`Objects: ${pair.resolved_object_references.join(", ") || "none"}`, {
+        indent: 10, size: 8.1, spaceAfter: 4,
+      });
+      text(`Review: ${pair.recommendation}`, { indent: 10, size: 8.3, spaceAfter: 9 });
+    });
+    if (resolved.objects.length) {
+      text("OBJECT RESOLUTION INVENTORY", { bold: true, size: 8.7, color: COLORS.blue, spaceAfter: 7 });
+      resolved.objects.forEach((object) => {
+        text(`${object.name}  [${object.kind}]  |  ${object.status}  |  line ${object.line_number}`, {
+          bold: true, size: 8.6, spaceAfter: 3,
+        });
+        text(object.value ?? object.reason, { indent: 10, size: 8.3, color: COLORS.muted, spaceAfter: 6 });
+      });
+    }
+
+    resolved.limitations.forEach((limit) => {
+      text(`Scope: ${limit}`, { size: 8, color: COLORS.muted, spaceAfter: 4 });
+    });
+    if (resolved.summary.truncated) {
+      text("Object resolution was truncated; the assessment is incomplete.", {
+        size: 8.5, color: COLORS.muted, spaceAfter: 5,
+      });
+    }
+  }
+
+  if (report.object_assurance) {
+    section("Object reference integrity");
+    const review = report.object_assurance;
+    text("Upload-scoped cross-reference review, not proof of effective device policy. Observations do not affect the security score.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 7,
+    });
+    text(`References checked: ${review.summary.references_checked} | Not defined in upload: ${review.summary.missing_in_upload} | Cycles: ${review.summary.cycles} | Repeated definitions: ${review.summary.repeated_definitions}`, {
+      size: 8.6, spaceAfter: 8,
+    });
+    review.observations.forEach((item) => {
+      ensure(62);
+      text(`${item.reference}  ${item.kind.replace(/_/g, " ")}  | line ${item.line_number}`, {
+        bold: true, size: 9.3, color: COLORS.navy, spaceAfter: 3,
+      });
+      text(`Object: ${item.object_name} | ${item.explanation}`, {
+        indent: 10, size: 8.3, spaceAfter: 4,
+      });
+      if (item.related_line_numbers.length) {
+        text(`Related lines: ${item.related_line_numbers.join(", ")}`, {
+          indent: 10, size: 8, color: COLORS.muted, spaceAfter: 3,
+        });
+      }
+      text(`Review: ${item.recommendation}`, { indent: 10, size: 8.2, spaceAfter: 8 });
+    });
+    if (review.summary.observations_omitted > 0) {
+      text("Additional observations were not included in the analyzer response or exceeded its safety limit. The report is incomplete; review a narrower configuration.", {
+        size: 8, color: COLORS.muted, spaceAfter: 5,
+      });
+    }
+    if (review.summary.incomplete) {
+      text("The uploaded source or processing was incomplete; absence claims cannot be established.", {
+        size: 8.4, color: COLORS.muted, spaceAfter: 5,
+      });
+    }
+    review.limitations.forEach((item) => {
+      text(`Scope: ${item}`, { size: 8.1, color: COLORS.muted, spaceAfter: 4 });
+    });
+  }
+
+  const qualityReview = (report as NormalizedReport & { quality?: {
+    status: string; summary: { errors: number; review_items: number; issues_suppressed: number };
+    finding_evidence: { findings_total: number; findings_crosschecked_with_adapter: number;
+      findings_with_reported_line_references: number; line_reference_note: string; };
+    coverage: { unassessed_domains: string[]; incomplete: boolean };
+    issues: Array<{ level: string; code: string; explanation: string; finding_id?: string }>;
+    platform_note: string; interpretation: string;
+  } }).quality;
+  if (qualityReview) {
+    section("Report quality and consistency");
+    text("This evaluates generated report consistency, not effective device security.", {
+      size: 8.6, color: COLORS.muted, spaceAfter: 7,
+    });
+    text(`Status: ${qualityReview.status.replace(/_/g, " ")} | Errors: ${qualityReview.summary.errors} | Review notices: ${qualityReview.summary.review_items}`, {
+      size: 8.9, bold: true, color: COLORS.navy, spaceAfter: 7,
+    });
+    text(`Findings cross-checked: ${qualityReview.finding_evidence.findings_crosschecked_with_adapter}/${qualityReview.finding_evidence.findings_total} | Source line references: ${qualityReview.finding_evidence.findings_with_reported_line_references}`, {
+      size: 8.6, spaceAfter: 5,
+    });
+    qualityReview.issues.forEach((issue, index) => {
+      text(`${index + 1}. ${issue.level.toUpperCase()}  ${issue.code}${issue.finding_id ? `  [${issue.finding_id}]` : ""}`, {
+        size: 8.7, bold: true, color: COLORS.blue, spaceAfter: 2,
+      });
+      text(issue.explanation, { indent: 10, size: 8.5, spaceAfter: 7 });
+    });
+    if (qualityReview.summary.issues_suppressed > 0) {
+      text(`${qualityReview.summary.issues_suppressed} additional notices were suppressed by the analysis service.`, {
+        size: 8.4, color: COLORS.muted, spaceAfter: 5,
+      });
+    }
+    text(qualityReview.platform_note, { size: 8.3, color: COLORS.muted, spaceAfter: 5 });
+    text(qualityReview.finding_evidence.line_reference_note, { size: 8.3, color: COLORS.muted, spaceAfter: 5 });
+    text(qualityReview.interpretation, { size: 8.3, color: COLORS.muted, spaceAfter: 6 });
+    if (qualityReview.coverage.unassessed_domains.length) {
+      text(`Not assessed: ${qualityReview.coverage.unassessed_domains.join(", ")}`, {
+        size: 8.3, color: COLORS.muted, spaceAfter: 6,
+      });
+    }
+  }
+
+  if (report.service_ipv6) {
+    section("Service groups and IPv6 — Detailed technical evidence");
+    const sg6 = report.service_ipv6;
+    text("Upload-only, supported-subset static analysis. The observations below are advisory and do not change the normalized security findings or scores.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Status: ${label(sg6.status)} | Objects resolved: ${sg6.summary.definitions_resolved} | Objects unresolved: ${sg6.summary.definitions_unresolved} | Eligible rules: ${sg6.summary.rules_eligible} | Candidate pairs: ${sg6.summary.correlation_candidates}`, {
+      size: 8.6, spaceAfter: 8,
+    });
+    text("Interpretation: A correlation candidate means supported explicit network and TCP/UDP destination-port selectors overlap within the compared policy context. It does not establish effective policy order, NAT reachability, or deployed device behavior.", {
+      size: 8.5, spaceAfter: 9,
+    });
+    if (sg6.objects.length > 0) {
+      text("OBJECT DEFINITIONS — REVIEW INVENTORY", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+      sg6.objects.forEach((item) => {
+        text(`${item.kind.replace(/_/g, " ")} | ${item.name} | line ${item.line_number} | ${item.status}`, {
+          bold: true, size: 8.3, spaceAfter: 2,
+        });
+        text(item.value ?? `Unresolved: ${item.reason}`, { indent: 10, size: 8.2, color: COLORS.muted, spaceAfter: 5 });
+      });
+      if (sg6.summary.definitions_seen > sg6.objects.length) {
+        text(`${sg6.summary.definitions_seen - sg6.objects.length} additional definitions excluded by PDF inventory limit. The report is incomplete.`, {
+          size: 8.3, color: COLORS.muted, spaceAfter: 6,
+        });
+      }
+    }
+    if (sg6.pairs.length > 0) {
+      text("POLICY CORRELATION EVIDENCE", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+      sg6.pairs.forEach((pair) => {
+        ensure(66);
+        text(`${pair.reference} | ${pair.kind.replace(/_/g, " ")} | IPv${pair.ip_version}`, {
+          bold: true, size: 9.1, color: COLORS.navy, spaceAfter: 4,
+        });
+        text(`Rules: ${pair.related_rule_id} (line ${pair.related_line_number}) and ${pair.rule_id} (line ${pair.line_number})`, {
+          indent: 10, size: 8.4, spaceAfter: 4,
+        });
+        text(`Objects: ${pair.resolved_objects.join(", ") || "literal selectors only"} | Order: ${pair.order_status.replace(/_/g, " ")}`, {
+          indent: 10, size: 8.2, spaceAfter: 4,
+        });
+        text(pair.explanation, { indent: 10, size: 8.3, spaceAfter: 4 });
+        text(`Recommendation: ${pair.recommendation}`, { indent: 10, size: 8.3, spaceAfter: 9 });
+      });
+    } else {
+      text("No correlation candidates established within this explicitly supported subset; this is not proof that no conflicts exist.", {
+        size: 8.4, color: COLORS.muted, spaceAfter: 8,
+      });
+    }
+    sg6.limitations.forEach((limit) => {
+      text(`Assessment limitation: ${limit}`, { size: 8.1, color: COLORS.muted, spaceAfter: 4 });
+    });
+    if (sg6.summary.incomplete || sg6.summary.candidates_omitted) {
+      text(`Incomplete analysis: ${sg6.summary.candidates_omitted} candidate pairs omitted by output limits; unsupported or truncated source may not have been assessed.`, {
+        size: 8.3, color: COLORS.muted, spaceAfter: 6,
+      });
+    }
+  }
+
+  if (report.nat_route_reachability) {
+    section("NAT, routing and reachability — Detailed technical evidence");
+    const nr = report.nat_route_reachability;
+    text("Advisory static configuration evidence only. This section does not establish effective reachability, allow/deny behavior, deployed route selection, traffic direction or NAT precedence. Prior security findings and scores are unchanged.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Status: ${label(nr.status)} | Routes: ${nr.summary.routes_resolved}/${nr.summary.routes_seen} | NAT: ${nr.summary.nat_resolved}/${nr.summary.nat_seen} | Eligible policies: ${nr.summary.policies_eligible}/${nr.summary.policies_seen} | Evidence items: ${nr.summary.evidence_items}`, {
+      size: 8.5, spaceAfter: 9,
+    });
+    if (nr.evidence.length > 0) {
+      text("CONFIGURATION CORRELATION — SOURCE EVIDENCE", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+      nr.evidence.forEach((item) => {
+        ensure(86);
+        text(`${item.reference} | ${item.kind.replace(/_/g, " ")} | ${item.title}`, {
+          bold: true, color: COLORS.navy, size: 9, spaceAfter: 4,
+        });
+        text(`Source line: ${item.line_number} | Policy: ${item.policy_id ?? "n/a"} | Route line: ${item.route_line_number ?? "n/a"} | Confidence: ${item.confidence}`, {
+          indent: 10, size: 8.2, spaceAfter: 4,
+        });
+        text(`Destination selector: ${item.destination ?? "n/a"} | Mapped address: ${item.mapped_destination ?? "n/a"}`, {
+          indent: 10, size: 8.2, spaceAfter: 4,
+        });
+        text(`Interface selectors: ingress ${item.ingress_interface ?? "not established"} | egress ${item.egress_interface ?? "not established"}`, {
+          indent: 10, size: 8.2, spaceAfter: 4,
+        });
+        text(item.explanation, { indent: 10, size: 8.3, spaceAfter: 4 });
+        text(`Recommendation: ${item.recommendation}`, { indent: 10, size: 8.3, spaceAfter: 9 });
+      });
+    } else {
+      text("No supported static route/NAT correlation was established in this upload; this does not prove that traffic is blocked or that the configuration is risk-free.", {
+        size: 8.4, color: COLORS.muted, spaceAfter: 8,
+      });
+    }
+    text("ASSESSMENT COVERAGE AND LIMITATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 4 });
+    nr.limitations.forEach((statement) => {
+      text(`Limitation: ${statement}`, { size: 8.2, color: COLORS.muted, spaceAfter: 5 });
+    });
+    if (nr.summary.incomplete || nr.summary.items_omitted > 0) {
+      text(`Incomplete coverage: ${nr.summary.items_omitted} source/analysis items were not reported or could not be correlated; no absence conclusion is supported.`, {
+        size: 8.3, color: COLORS.muted, spaceAfter: 6,
+      });
+    }
+  }
+
+  if (report.ids_deep_review && report.ids_deep_review.status !== "not_applicable") {
+    section("Snort and Suricata — Detailed IDS configuration evidence");
+    const ids = report.ids_deep_review;
+    text("Static advisory inspection of uploaded configuration text only. No rule loading, interface availability, inline enforcement, alert delivery or deployed runtime configuration was verified. Findings/severity/score from earlier stages are unchanged.", {
+      size: 8.4, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Platform: ${ids.platform_id} | Status: ${label(ids.status)} | Inspected inline rules: ${ids.summary.rules_inspected} | Repeated GID/SIDs: ${ids.summary.duplicate_rule_ids} | External references: ${ids.summary.external_references} | Suricata outputs enabled (explicit): ${ids.summary.outputs_explicitly_enabled} | Outputs disabled (explicit): ${ids.summary.outputs_explicitly_disabled} | Snort output directives: ${ids.summary.outputs_declared} | Interfaces declared: ${ids.summary.interfaces_declared}`, {
+      size: 8.2, spaceAfter: 8,
+    });
+    if (ids.evidence.length > 0) {
+      text("SOURCE CONFIGURATION OBSERVATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+      ids.evidence.forEach((item) => {
+        ensure(100);
+        text(`${item.reference} | ${item.kind.replace(/_/g, " ")} | ${item.title}`, {
+          bold: true, color: COLORS.navy, size: 9, spaceAfter: 4,
+        });
+        text(`Source line: ${item.line_number} | Setting: ${item.setting || "n/a"} | Confidence: ${item.confidence}`, {
+          indent: 10, size: 8.1, spaceAfter: 4,
+        });
+        text(`Observed: ${item.observation}`, { indent: 10, size: 8.3, spaceAfter: 4 });
+        text(`Interpretation: ${item.implication}`, { indent: 10, size: 8.3, spaceAfter: 4 });
+        text(`Recommendation: ${item.recommendation}`, { indent: 10, size: 8.3, spaceAfter: 9 });
+      });
+    } else {
+      text("No supported observations were emitted; this is not evidence that the deployed sensor is secure, fully configured or actively detecting threats.", {
+        size: 8.3, color: COLORS.muted, spaceAfter: 8,
+      });
+    }
+    text("REVIEW SCOPE AND VALIDATION LIMITATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    ids.limitations.forEach((limit) => {
+      text(`Limitation: ${limit}`, { size: 8.1, color: COLORS.muted, spaceAfter: 5 });
+    });
+    if (ids.summary.incomplete) {
+      text(`Partial coverage: ${ids.summary.items_omitted} items were omitted or not assessed. A missing observation does not prove a correct or safe sensor configuration.`, {
+        size: 8.3, color: COLORS.muted, spaceAfter: 6,
+      });
+    }
+  }
+
+  if (report.consolidation_review) {
+    section("Cross-platform review consolidation — Evidence quality and provenance");
+    const con = report.consolidation_review;
+    text("This assessment consolidates advisory evidence across review stages for ONE uploaded configuration. It does not compare separate devices or prove effective firewall/IDS behavior. No earlier findings, severity ratings, scores or recommendations were removed or changed.", {
+      size: 8.4, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Platform: ${con.platform_id} | Status: ${label(con.status)} | Review sections: ${con.summary.sections_present} | Advisory items inspected: ${con.summary.advisory_items_examined} | Candidate cross-review links: ${con.summary.candidate_links} | Metadata observations: ${con.summary.quality_observations}`, {
+      size: 8.4, spaceAfter: 8,
+    });
+    text("REVIEW COVERAGE INVENTORY", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    con.sections.forEach((entry) => {
+      text(`${entry.name.replace(/_/g, " ")} | ${entry.availability} | ${entry.status} | Items: ${entry.items_examined} | Omitted: ${entry.items_omitted} | Applicable: ${entry.applicable ? "yes" : "no"}`, {
+        size: 8.1, spaceAfter: 4,
+      });
+    });
+    if (con.issues.length > 0) {
+      text("EVIDENCE QUALITY OBSERVATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+      con.issues.forEach((item) => {
+        ensure(88);
+        text(`${item.reference} | ${item.kind.replace(/_/g, " ")} | ${item.section}`, {
+          bold: true, color: COLORS.navy, size: 8.8, spaceAfter: 4,
+        });
+        text(`Source line: ${item.source_line ?? "unavailable"} | Confidence: ${item.confidence}`, {
+          indent: 10, size: 8, spaceAfter: 4,
+        });
+        text(`Observed: ${item.observation}`, { indent: 10, size: 8.2, spaceAfter: 4 });
+        text(`Recommended verification: ${item.recommendation}`, { indent: 10, size: 8.2, spaceAfter: 7 });
+      });
+    } else {
+      text("No metadata inconsistencies were identified within the supported bounded review subset; this does NOT certify completeness or security.", {
+        color: COLORS.muted, size: 8.2, spaceAfter: 7,
+      });
+    }
+    if (con.links.length > 0) {
+      text("POTENTIALLY RELATED ADVISORY SIGNALS — NOT VERIFIED DUPLICATES", {
+        bold: true, color: COLORS.blue, size: 9, spaceAfter: 5,
+      });
+      con.links.forEach((link) => {
+        ensure(88);
+        text(`${link.reference} | Source line ${link.source_line} | Signal: ${link.signal} | ${link.title}`, {
+          bold: true, size: 8.4, spaceAfter: 4,
+        });
+        link.related.forEach((ref) => {
+          text(`Related: ${ref.section} | ${ref.reference || ref.locator} | line ${ref.source_line}`, {
+            indent: 10, size: 8.1, spaceAfter: 3,
+          });
+        });
+        text(`Basis: ${link.reason}`, { indent: 10, size: 8.2, spaceAfter: 4 });
+        text(`Recommendation: ${link.recommendation}`, { indent: 10, size: 8.2, spaceAfter: 8 });
+      });
+    }
+    text("SCOPE, INCOMPLETENESS AND SAFETY LIMITS", {
+      bold: true, color: COLORS.blue, size: 9, spaceAfter: 5,
+    });
+    con.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8, spaceAfter: 5,
+    }));
+    if (con.summary.incomplete) {
+      text(`Incomplete review: ${con.summary.items_omitted} item(s) explicitly omitted by bounded scanning or upstream review metadata; this is not a completeness certification.`, {
+        size: 8.2, color: COLORS.muted, spaceAfter: 7,
+      });
+    }
+  }
+
+  if (report.correlation_accuracy_review) {
+    section("Correlation accuracy and false-positive triage — Detailed evidence");
+    const acc = report.correlation_accuracy_review;
+    text("Static report-metadata validation for ONE uploaded configuration. An unsupported link does not mean a finding is a false positive. No findings, scores or severities were changed.", {
+      size: 8.4, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Platform: ${acc.platform_id} | Status: ${label(acc.status)} | Links inspected: ${acc.summary.links_checked} | Potential matches: ${acc.summary.plausible_links} | Unsupported links: ${acc.summary.unsupported_links} | Needs context: ${acc.summary.uncertain_links}`, {
+      size: 8.4, spaceAfter: 7,
+    });
+    text(`Matching normalized finding metadata pairs: ${acc.summary.finding_metadata_pairs} | Severity disagreements: ${acc.summary.severity_conflicts} | Findings lacking a source line: ${acc.summary.findings_without_line} | Omitted items: ${acc.summary.items_omitted}`, {
+      size: 8.2, spaceAfter: 7,
+    });
+    text("LINK-BY-LINK VALIDATION", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    if (acc.decisions.length === 0) {
+      text("No candidate links were returned for validation; this does not establish that the upstream findings are unique or free of false positives.", { size: 8.2, color: COLORS.muted, spaceAfter: 7 });
+    }
+    acc.decisions.forEach((item) => {
+      ensure(95);
+      text(`${item.reference} | ${item.upstream_reference || "unreferenced"} | ${label(item.classification)}`, {
+        bold: true, color: COLORS.navy, size: 8.7, spaceAfter: 4,
+      });
+      text(`Source line: ${item.source_line ?? "unavailable"} | Confidence: ${item.confidence}`, {
+        size: 8, indent: 10, spaceAfter: 4,
+      });
+      text(`Evidence: ${item.reason}`, { size: 8.2, indent: 10, spaceAfter: 4 });
+      text(`Analyst action: ${item.recommended_action}`, { size: 8.2, indent: 10, spaceAfter: 8 });
+    });
+    text("FINDING METADATA QUALITY OBSERVATIONS", {
+      bold: true, color: COLORS.blue, size: 9, spaceAfter: 5,
+    });
+    if (acc.quality_observations.length === 0) {
+      text("No bounded finding metadata observations were produced. This does not certify the absence of false positives.", {
+        color: COLORS.muted, size: 8.2, spaceAfter: 7,
+      });
+    }
+    acc.quality_observations.forEach((item) => {
+      ensure(95);
+      text(`${item.reference} | ${label(item.kind)} | Source line: ${item.source_line ?? "unavailable"}`, {
+        bold: true, color: COLORS.navy, size: 8.7, spaceAfter: 4,
+      });
+      text(`Observed: ${item.reason}`, { indent: 10, size: 8.2, spaceAfter: 4 });
+      text(`Recommended verification: ${item.recommendation}`, { indent: 10, size: 8.2, spaceAfter: 8 });
+    });
+    text("LIMITATIONS AND COVERAGE", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    acc.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8, spaceAfter: 5,
+    }));
+    if (acc.summary.incomplete) {
+      text("Coverage is partial. Do not interpret unassessed or omitted evidence as a clean pass.", {
+        color: COLORS.muted, size: 8.2, spaceAfter: 7,
+      });
+    }
+  }
+
+  if (report.report_validation_review) {
+    section("Report validation and reporting reliability — Detailed preflight evidence");
+    const rv = report.report_validation_review;
+    text("This is a static normalized-report contract check. PDF generation, font rendering, page layout and download integrity have NOT been verified by this check.", {
+      size: 8.4, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Platform: ${rv.platform_id} | Status: ${label(rv.status)} | Checks: ${rv.summary.checks_performed} | Consistent: ${rv.summary.passed_checks} | Discrepancies: ${rv.summary.discrepancies} | Warnings: ${rv.summary.warnings}`, {
+      size: 8.4, spaceAfter: 7,
+    });
+    text(`Review modules examined: ${rv.summary.reviews_examined} | Validation observations omitted: ${rv.summary.items_omitted} | Coverage incomplete: ${rv.summary.incomplete ? "yes" : "no"}`, {
+      size: 8.2, spaceAfter: 7,
+    });
+    text("CONTRACT CHECK EVIDENCE AND ANALYST ACTIONS", {
+      bold: true, color: COLORS.blue, size: 9, spaceAfter: 5,
+    });
+    rv.checks.forEach((item) => {
+      ensure(90);
+      text(`${item.reference} | ${label(item.section)} | ${label(item.check)} | ${label(item.result)}`, {
+        bold: true, color: COLORS.navy, size: 8.6, spaceAfter: 4,
+      });
+      text(`Observed: ${item.observed} | Expected: ${item.expected} | Confidence: ${item.confidence}`, {
+        size: 8, indent: 10, spaceAfter: 4,
+      });
+      text(`Assessment: ${item.explanation}`, { size: 8.2, indent: 10, spaceAfter: 4 });
+      text(`Recommended verification: ${item.recommended_action}`, {
+        size: 8.2, indent: 10, spaceAfter: 8,
+      });
+    });
+    text("SCOPE AND VALIDATION LIMITATIONS", {
+      bold: true, color: COLORS.blue, size: 9, spaceAfter: 5,
+    });
+    rv.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8, spaceAfter: 5,
+    }));
+    if (rv.summary.incomplete || rv.status === "inconsistent") {
+      text("This report is not cleared for reliance without manual review of discrepancies or incomplete evidence.", {
+        color: COLORS.muted, size: 8.2, spaceAfter: 8,
+      });
+    }
+  }
+
+  if (report.pdf_export_review) {
+    section("PDF export readiness — Detailed preflight observations");
+    const exportReview = report.pdf_export_review;
+    text("These are checks of the normalized report BEFORE rendering. The browser separately checks the generated PDF header, EOF marker, file size and page count before initiating a download. Neither check proves visual fidelity or that the browser saved the file.", {
+      size: 8.4, color: COLORS.muted, spaceAfter: 8,
+    });
+    text(`Status: ${label(exportReview.status)} | Checks: ${exportReview.summary.checks} | Passed: ${exportReview.summary.passed} | Warnings: ${exportReview.summary.warnings} | Blockers: ${exportReview.summary.blockers}`, {
+      size: 8.4, spaceAfter: 8,
+    });
+    if (exportReview.observations.length === 0) {
+      text("No structured preflight concerns were identified in the supported subset; this is NOT a guarantee of correct rendering or security.", {
+        color: COLORS.muted, size: 8.2, spaceAfter: 8,
+      });
+    }
+    exportReview.observations.forEach((item) => {
+      ensure(92);
+      text(`${item.reference} | ${label(item.kind)} | ${label(item.result)}`, {
+        bold: true, color: COLORS.navy, size: 8.7, spaceAfter: 4,
+      });
+      text(`Observation: ${item.observation}`, { size: 8.2, indent: 10, spaceAfter: 4 });
+      text(`Recommended action: ${item.recommendation}`, { size: 8.2, indent: 10, spaceAfter: 8 });
+    });
+    if (exportReview.summary.omitted > 0) {
+      text(`${exportReview.summary.omitted} diagnostic observation(s) omitted from this PDF preflight section.`, {
+        color: COLORS.muted, size: 8.1, spaceAfter: 6,
+      });
+    }
+    text("PDF EXPORT VALIDATION LIMITATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    exportReview.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8.1, spaceAfter: 5,
+    }));
+  }
+
+  if (report.pipeline_validation_review) {
+    const pipelineReview = report.pipeline_validation_review;
+    section("End-to-end pipeline validation — Detailed verification evidence");
+    text("Server-side report checks cannot prove that the browser generated and saved the PDF. Run the saved-PDF audit and visually inspect the downloaded report.", {
+      color: COLORS.muted, size: 8.3, spaceAfter: 7,
+    });
+    text(`Status: ${label(pipelineReview.status)} | Checks: ${pipelineReview.summary.checks} | Passed: ${pipelineReview.summary.passed} | Warnings: ${pipelineReview.summary.warnings} | Blockers: ${pipelineReview.summary.blockers} | Manual verification: ${pipelineReview.summary.manual_required}`, {
+      size: 8.1, spaceAfter: 8,
+    });
+    pipelineReview.stages.forEach((item) => {
+      ensure(91);
+      text(`${item.reference} | ${label(item.stage)} | ${label(item.result)}`, {
+        bold: true, color: COLORS.navy, size: 8.5, spaceAfter: 3,
+      });
+      text(`Observation: ${item.observation}`, { size: 8.1, indent: 10, spaceAfter: 3 });
+      text(`Evidence basis: ${item.evidence_basis}`, { size: 7.9, indent: 10, spaceAfter: 3 });
+      text(`Recommended action: ${item.recommendation}`, { size: 8.1, indent: 10, spaceAfter: 7 });
+    });
+    text("PIPELINE VALIDATION LIMITATIONS", { bold: true, color: COLORS.blue, size: 8.9, spaceAfter: 4 });
+    pipelineReview.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8, spaceAfter: 5,
+    }));
+  }
+
+  if (report.input_security_review) {
+    const inputSecurity = report.input_security_review;
+    section("Upload input validation — Detailed evidence");
+    text(report.platform.platform_id === "f5_bigip"
+      ? "Input bytes were validated by the dedicated F5 upload endpoint using shared API-011.6 validation helpers. The accepted file then entered the F5 Phase 1 + 2 analysis pipeline, not the general API-011.4 chain. These checks do not establish device security."
+      : "Validation occurred before analysis at the API-011.6 endpoint. These are bounded text/file checks, NOT a claim that the configuration is safe or every API route is protected.", {
+      color: COLORS.muted, size: 8.3, spaceAfter: 7,
+    });
+    text(`Status: ${label(inputSecurity.status)} | Bytes: ${inputSecurity.summary.byte_count} | Lines: ${inputSecurity.summary.line_count} | Checks passed: ${inputSecurity.summary.checks_passed}`, {
+      size: 8.2, spaceAfter: 6,
+    });
+    text(`Input SHA-256: ${inputSecurity.sha256}`, { size: 7.7, spaceAfter: 7 });
+    inputSecurity.checks.forEach((check) => {
+      text(`${label(check.name)}: ${label(check.result)}`, { size: 8.1, indent: 10, spaceAfter: 3 });
+    });
+    text("VALIDATION SCOPE AND LIMITATIONS", { bold: true, color: COLORS.blue, size: 8.8, spaceAfter: 4 });
+    const inputLimitations = report.platform.platform_id === "f5_bigip"
+      ? [
+          "The dedicated F5 endpoint reuses API-011.6 input-validation helpers. Validation coverage of other endpoints is not established.",
+          "Multipart parsing precedes handler validation; configure upstream ASGI or reverse-proxy request size limits.",
+          "After validation, the dedicated F5 analysis pipeline runs; the general API-011.4 analysis chain is not used.",
+          "Input checks do not prove effective device security, complete parsing, or accuracy of the security findings.",
+        ]
+      : inputSecurity.limitations;
+    inputLimitations.forEach((item) => text(`Limitation: ${item}`, {
+      color: COLORS.muted, size: 8, spaceAfter: 5,
+    }));
+  }
+
+  const f5Phase1Review = (report as NormalizedReport & { f5_phase1_review?: F5Phase1Review }).f5_phase1_review;
+  if (f5Phase1Review) {
+    const f5Assurance = (report as NormalizedReport & { f5_assurance_review?: {
+      assessment_type: string;
+      unresolved_profile_references: Array<{ virtual_server: string; profile: string }>;
+      profile_inheritance: Array<{ profile: string; parent: string; effective_inheritance_verified: boolean }>;
+      profile_tls_evidence: Array<{ profile: string; explicit_cipher_expression: string | null; explicit_cipher_group: string | null }>;
+      irule_control_flow_review: Array<{ rule: string; indicators: Array<{ token: string; line: number }> }>;
+      limitations: string[];
+    } }).f5_assurance_review;
+    if (f5Assurance) {
+      section("F5 EVIDENCE ASSURANCE AND VERIFICATION GAPS");
+      text("Supplemental static evidence review only. No runtime, live-device, inherited defaults, certificate chain, cipher-suite expansion or UCS content verification is claimed.", {
+        size: 8.2, color: COLORS.muted, spaceAfter: 6,
+      });
+      text(`Unresolved exported profile references: ${f5Assurance.unresolved_profile_references.length} | Explicit inheritance links: ${f5Assurance.profile_inheritance.length} | SSL profiles reviewed: ${f5Assurance.profile_tls_evidence.length} | iRule indicator reviews: ${f5Assurance.irule_control_flow_review.length}`, {
+        size: 8.5, bold: true, spaceAfter: 7,
+      });
+      f5Assurance.unresolved_profile_references.slice(0, 30).forEach(item =>
+        text(`Reference not in uploaded subset: ${item.virtual_server} -> ${item.profile}`, { size: 8, spaceAfter: 3 }));
+      f5Assurance.profile_inheritance.slice(0, 30).forEach(item =>
+        text(`Inheritance unresolved: ${item.profile} derives from ${item.parent}`, { size: 8, spaceAfter: 3 }));
+      f5Assurance.limitations.slice(0, 10).forEach(item =>
+        text(`Limit: ${item}`, { size: 8, color: COLORS.muted, spaceAfter: 4 }));
+    }
+    section("F5 BIG-IP LTM & Advanced WAF - Detailed Technical Evidence");
+    text("Static F5-001/002/003/007 checks plus F5-004 logging associations, F5-005 UCS evidence, F5-006 update evidence and F5-008 iRule inventory. No live F5 or UCS inspection.", {
+      size: 8.5, color: COLORS.muted, spaceAfter: 7,
+    });
+    text(`Profiles: ${f5Phase1Review.total_profiles} | Virtual servers: ${f5Phase1Review.total_virtual_servers} | Findings: ${f5Phase1Review.findings.length} | Review observations: ${f5Phase1Review.review_observations.length}`, {
+      size: 9, bold: true, spaceAfter: 7,
+    });
+    const printF5Items = (items: F5Phase1Review["findings"], heading: string) => {
+      text(heading, { bold: true, color: COLORS.blue, size: 9.1, spaceAfter: 6 });
+      if (!items.length) text("No items returned in this category.", { size: 8.5, color: COLORS.muted });
+      items.slice(0, 500).forEach((item) => {
+        ensure(68);
+        text(`${item.code} | ${item.title} | ${item.severity.toUpperCase()}`, { bold: true, size: 9.1, spaceAfter: 4 });
+        text(`Object: ${item.affected_object} (${item.object_type}) | Source line: ${item.line_number ?? "not available"} | Confidence: ${item.confidence}`, {
+          size: 8.2, color: COLORS.muted, spaceAfter: 3,
+        });
+        text(`Setting: ${item.evidence.setting} | Observed: ${item.evidence.observed}`, { size: 8.4, indent: 8, spaceAfter: 4 });
+        if (item.associated_virtual_servers.length) {
+          text(`Associated virtual servers: ${item.associated_virtual_servers.join(", ")}`, {
+            size: 8.1, indent: 8, spaceAfter: 4,
+          });
+        }
+        text(item.description, { indent: 8, size: 8.5, spaceAfter: 4 });
+        if (item.code === "F5-008" && item.evidence.observed.includes("ASM::disable")) {
+          text("Review note: ASM::disable can suppress ASM/Advanced WAF inspection for requests on which it executes. Confirm the iRule event, conditional scope, and any authorization exceptions; this static observation does not prove a live WAF bypass.", {
+            indent: 8, size: 8.3, color: COLORS.blue, spaceAfter: 5,
+          });
+        }
+        text(`Recommendation: ${item.recommendation}`, { indent: 8, size: 8.5, spaceAfter: 5 });
+        text(`Limitation: ${item.limitations}`, { indent: 8, color: COLORS.muted, size: 8, spaceAfter: 8 });
+      });
+      if (items.length > 500) text("Further F5 records omitted because the PDF safety limit was reached; refer to the complete JSON export.", {
+        color: COLORS.muted, size: 8.2,
+      });
+    };
+    printF5Items(f5Phase1Review.findings, "CONFIGURATION FINDINGS");
+    printF5Items(f5Phase1Review.review_observations, "POLICY REVIEW / INSUFFICIENT EVIDENCE (NOT CONFIRMED VULNERABILITIES)");
+    text("F5 PHASES 1 + 2 COVERAGE LIMITATIONS", { bold: true, color: COLORS.blue, size: 9, spaceAfter: 5 });
+    f5Phase1Review.limitations.forEach((item) => text(`Limitation: ${item}`, {
+      size: 8.2, color: COLORS.muted, spaceAfter: 5,
+    }));
+  }
+
+  section("Assessment coverage");
+  text("'Assessed' means the implemented checks ran. It does not mean the configuration passed a complete security audit.", {
+    size: 8.4, color: COLORS.muted, spaceAfter: 9,
+  });
+  report.coverage.domains.forEach((domain) => {
+    ensure(23);
+    const assessed = domain.status === "assessed";
+    const statusColor: RGB = assessed ? COLORS.teal : SEVERITY_COLORS.unknown;
+    setFill(pdf, statusColor);
+    pdf.circle(PAGE_MARGIN + 6, cursor - 3, 3, "F");
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(8.7);
+    setInk(pdf, COLORS.ink);
+    pdf.text(short(label(domain.domain), 80), PAGE_MARGIN + 17, cursor);
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(8.2);
+    setInk(pdf, statusColor);
+    pdf.text(assessed ? "ASSESSED" : "NOT ASSESSED", pageWidth - PAGE_MARGIN, cursor, { align: "right" });
+    cursor += 22;
+  });
+  if (report.coverage.limitations.length) {
+    section("Scope limitations");
+    report.coverage.limitations.forEach((limitation, i) => {
+      text(`${i + 1}. ${limitation}`, { indent: 6, size: 8.9, spaceAfter: 7 });
+    });
+  }
+  if (report.warnings.length) {
+    section("Parser and analysis warnings");
+    report.warnings.forEach((warning, i) => {
+      text(`${i + 1}. ${warning}`, { indent: 6, size: 8.9, spaceAfter: 7 });
+    });
+  }
+  section("How to read this assessment");
+  text("The Dashboard is an overview only. This PDF is the detailed report for the uploaded configuration and its supported checks.", {
+    size: 8.9, color: COLORS.ink, spaceAfter: 10,
+  });
+  const definitions: Array<[string, string]> = [
+    ["Findings / severity", "Security findings are individual issues detected by implemented checks. Severity is an ordinal priority: Info, Low, Medium, High, Critical; Unknown means not classified. It is not a second numeric security score."],
+    ["Provisional review score", "A 0-100 indicator based on the checks performed; higher generally means fewer detected concerns. Missing coverage may cap it at 80/100. It does not estimate the probability of compromise."],
+    ["Security score / risk level", "An analyzer-specific summary that may use a legacy vendor-specific formula. Do not compare legacy scores directly with the provisional review score or between different vendors."],
+    ["Report quality", "Checks internal consistency of generated report fields and source references. A consistent report is not proof the device is secure."],
+    ["Vendor review", "Additional platform-specific, upload-scoped observations. These are separate from the normalized findings and do not change existing scores unless explicitly stated."],
+    ["Rule correlation", "Candidate overlaps, redundancies, contradictory actions, or shadowing relationships. Their applicability depends on supported syntax, effective order, objects, interfaces and runtime behavior."],
+    ["Evidence and ordering", "A cited line or sequence number is source evidence, not confirmation of effective deployed policy. Contradictory or absent ordering evidence requires manual review."],
+    ["Object resolution", "Supported named network and service objects are expanded to compare selectors. Unsupported, unresolved, ambiguous and out-of-scope definitions are not assumed to match."],
+    ["Object reference integrity", "Missing from upload means the referenced definition was not visible in the submitted file; this does not prove it is missing on the live device."],
+    ["Coverage, warnings and limitations", "Assessed means the implemented checks ran, not that all vendor features were inspected. Not assessed, truncated input, omitted server observations and parser warnings limit any conclusion."],
+  ];
+  definitions.forEach(([term, explanation]) => {
+    text(term.toUpperCase(), { bold: true, color: COLORS.blue, size: 8.6, spaceAfter: 3 });
+    text(explanation, { indent: 9, size: 8.5, spaceAfter: 9 });
+  });
+
+  section("Report interpretation");
+  text("This document describes findings from static analysis of the uploaded configuration. An absence of findings must not be interpreted as proof of security.", {
+    size: 8.8,
+  });
+  text("Referenced files, effective runtime policy, deployed rules, network traffic, and vendor features outside the implemented checks may not have been assessed.", {
+    size: 8.8,
+  });
+  text(`Normalized report schema: ${report.schema_version}. Report reference identifies this PDF export, not a server-side audit record.`, {
+    size: 8.2, color: COLORS.muted,
+  });
+
+  // Finish headers/footers after all pages exist so page totals are accurate.
+  const totalPages = pdf.getNumberOfPages();
+  for (let p = 1; p <= totalPages; p += 1) {
+    pdf.setPage(p);
+    setStroke(pdf, COLORS.line);
+    pdf.setLineWidth(0.6);
+    pdf.line(PAGE_MARGIN, pageHeight - 42, pageWidth - PAGE_MARGIN, pageHeight - 42);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7.4);
+    setInk(pdf, COLORS.muted);
+    pdf.text(short(reference, 64), PAGE_MARGIN, pageHeight - 26);
+    pdf.text(`Page ${p} of ${totalPages}`, pageWidth - PAGE_MARGIN, pageHeight - 26, { align: "right" });
+  }
+}
+
+/** Invoke from a real user click; the PDF dependency is loaded on demand. */
+export async function downloadNormalizedPdf(report: NormalizedReport, filename: string): Promise<void> {
+  const { jsPDF } = await import("jspdf");
+  const pdf = new jsPDF({ unit: "pt", format: "a4", compress: true });
+  renderNormalizedPdf(pdf, report, filename);
+  // Validate the exact serialized bytes that will be downloaded.
+  const payload = pdf.output("arraybuffer");
+  const inspection = inspectPdfExport(new Uint8Array(payload), pdf.getNumberOfPages());
+  if (!inspection.ok) {
+    throw new Error(`PDF export validation failed: ${inspection.problems.join("; ")}`);
+  }
+  downloadVerifiedPdf(payload, `${normalizedFilename(filename)}.${normalizedFilename(report.platform.platform_id)}.security-report.pdf`);
+}

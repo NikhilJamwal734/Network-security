@@ -1,0 +1,49 @@
+﻿# Python
+.venv/
+.venv-win/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# React / Node.js
+node_modules/
+frontend/node_modules/
+frontend/dist/
+coverage/
+
+# Build outputs
+dist/
+build/
+desktop_release_single/
+*.exe
+*.msi
+*.zip
+
+# Local logs and analysis data
+logs/
+uploads/
+reports/
+tmp/
+temp/
+*.log
+*.jsonl
+*.ucs
+
+# Credentials and keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Generated test and build results
+release_final_gate.json
+release_final_build_result.json
+recommendations_123_exe_acceptance.json
+
+# Temporary backups
+*.bak

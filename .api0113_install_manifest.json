@@ -1,0 +1,49 @@
+{
+  "version": "11.3",
+  "files": {
+    "app/api/main.py": {
+      "original_exists": true,
+      "new_sha256": "47cb12f04a84a98c75019e88c26e21fae0e0b228cdc52785ee412b99f2d96733",
+      "original_sha256": "2f8716fc20235c62ff9b2ea117310f8ae5d6eed0c7ec85aaec2c0d9d73162742"
+    },
+    "app/api/pdf_export_readiness.py": {
+      "original_exists": false,
+      "new_sha256": "9ff90070a88735e62c31999ff4e34cb805df5c1549e3191711f5fefe64587280"
+    },
+    "app/core/pdf_export_readiness.py": {
+      "original_exists": false,
+      "new_sha256": "a3c5a48f81f9b7b19072f3e477c29e0def3bcd80c2d586932c025672b428e860"
+    },
+    "tests/test_api_011_3_pdf_readiness.py": {
+      "original_exists": false,
+      "new_sha256": "9f71ebd6e5e834ab69381c4254985867e756b121a1a0edfbc3280f352030d357"
+    },
+    "frontend/src/api/universal.ts": {
+      "original_exists": true,
+      "new_sha256": "4372ebc6800fb4ab706796407fc17f150c8ae8b1145bdec23583239a02030c53",
+      "original_sha256": "3e499cc3848c63356b0f24be9418754758f49753ac16bcc366885d4863e631b6"
+    },
+    "frontend/src/pages/UniversalAnalysis.tsx": {
+      "original_exists": true,
+      "new_sha256": "b1f0f01f7d8553d95732b2d22b62f161ab03a2970cb433e785a97009658ef91f",
+      "original_sha256": "a85194a759732e8ee62273a3c19725001791351854b2f601dd77aabbe39bf2d5"
+    },
+    "frontend/src/utils/normalizedPdf.ts": {
+      "original_exists": true,
+      "new_sha256": "3ffcf6f9ef86041f9ee55f795ed35410ee7280274257adb43b4dee614355862c",
+      "original_sha256": "ca02ca888dea7a640fe1911cf5e55e14113be1d4fd5b538f8465ff41b984379c"
+    },
+    "frontend/src/components/PdfExportReadinessSnippet.tsx": {
+      "original_exists": false,
+      "new_sha256": "3dd8c98fa04005848c23b158b1170b49e6b3a7b34a78fdca6bf22df952bc4418"
+    },
+    "frontend/src/components/PdfExportReadinessSnippet.css": {
+      "original_exists": false,
+      "new_sha256": "17bb46d86359b73875ac0b3f971cd5cc9411c209977592b659ffab9bcdf91237"
+    },
+    "frontend/src/utils/pdfExportIntegrity.ts": {
+      "original_exists": false,
+      "new_sha256": "29c133aa04fa7ef2387086192a563badccdb23c9119cd6bbad6250954a8077fb"
+    }
+  }
+}

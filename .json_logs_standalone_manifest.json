@@ -1,0 +1,37 @@
+{
+  "patch": "json-logs-standalone-v1",
+  "files": {
+    "app/api/main.py": {
+      "before": "a8f8bde1520345db96aae3c0da823d5efc4016f8b2fd74d4eb5f2b5a6c1183e0",
+      "after": "6059c294e9dfcbd3a0847d7182ab03cd2c187e69cb40d83b8b8e37f3a33eeaea"
+    },
+    "app/api/log_viewer.py": {
+      "before": null,
+      "after": "31b15df4ec56daccdbff4dc209971c818590fe89936293871a4efd477ab2d629"
+    },
+    "frontend/src/api/logs.ts": {
+      "before": null,
+      "after": "08f4d657735f184f04d4e0a895ca86f5004250ab66b4fd7263d61878c7bc26c1"
+    },
+    "frontend/src/pages/Logs.tsx": {
+      "before": null,
+      "after": "dcdb4e7a509eb9b4086da27beea373c6d1282026f2a7f7b62e3ba02c32b86014"
+    },
+    "frontend/src/pages/Logs.css": {
+      "before": null,
+      "after": "26f3738f465a81f04518a2c4f7915ce7f4f3fa1d14ec61695242cb87d2671713"
+    },
+    "frontend/src/logs-main.tsx": {
+      "before": null,
+      "after": "c129cb08fac4d8d4e5af6fc5145666ff234a52280a2c7d9c4399a470848978c2"
+    },
+    "frontend/logs.html": {
+      "before": null,
+      "after": "b0cc28873d6b948563a47555a008dc5d8acf8f80acbbd1df8c502c98f8322fd4"
+    },
+    "tools/Watch-FirewallLogs.ps1": {
+      "before": null,
+      "after": "03daa8e96ddbff7135f2e5c4a6048779d72f7069cd8c7452c511dc8b3c602e1c"
+    }
+  }
+}

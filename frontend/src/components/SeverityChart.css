@@ -1,0 +1,15 @@
+/* Severity distribution: accessible SVG doughnut chart and color legend */
+.fa-severity-layout { display: grid; grid-template-columns: minmax(170px, 240px) minmax(180px, 1fr); align-items: center; gap: clamp(16px,3vw,36px); width: 100%; padding: 8px 0; box-sizing: border-box; }
+.fa-severity-visual { width: 100%; max-width: 240px; margin: 0 auto; }
+.fa-severity-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fa-severity-number { fill: #f8fafc; font-size: 43px; font-weight: 800; font-family: inherit; }
+.fa-severity-center-label { fill: #94a3b8; font-size: 12px; font-weight: 500; font-family: inherit; }
+.fa-severity-legend { display: grid; gap: 10px; min-width: 0; }
+.fa-severity-legend-row { display: grid; grid-template-columns: 12px minmax(65px,1fr) 30px 43px; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 10px; background: rgba(51,65,85,.28); }
+.fa-severity-dot { width: 11px; height: 11px; border-radius: 50%; }
+.fa-severity-label { color: #e2e8f0; font-size: 13px; }
+.fa-severity-count { color: #f8fafc; font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; }
+.fa-severity-percent { color: #94a3b8; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.fa-severity-note { margin: 5px 0 0; color: #94a3b8; font-size: 12px; line-height: 1.5; }
+@media (max-width: 1050px) { .fa-severity-layout { grid-template-columns: 1fr; justify-items: stretch; } .fa-severity-visual { max-width: 220px; } }
+@media (max-width: 600px) { .fa-severity-visual { max-width: 200px; } .fa-severity-layout { gap: 12px; } }

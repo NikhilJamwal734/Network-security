@@ -1,0 +1,62 @@
+import type { FirewallReport } from "../types/report";
+
+interface ConfigurationSummaryProps {
+  summary: FirewallReport["summary"];
+}
+
+export default function ConfigurationSummary({
+  summary,
+}: ConfigurationSummaryProps) {
+  return (
+    <section className="dashboard-card">
+      <div className="card-header">
+        <div>
+          <span className="eyebrow">CONFIGURATION</span>
+          <h2>Configuration Summary</h2>
+        </div>
+      </div>
+
+      <div className="configuration-grid">
+        <div className="configuration-item">
+          <span className="configuration-icon">⌁</span>
+          <div>
+            <strong>{summary.total_network_objects}</strong>
+            <span>Networks</span>
+          </div>
+        </div>
+
+        <div className="configuration-item">
+          <span className="configuration-icon">◈</span>
+          <div>
+            <strong>{summary.total_service_objects}</strong>
+            <span>Services</span>
+          </div>
+        </div>
+
+        <div className="configuration-item">
+          <span className="configuration-icon">⇄</span>
+          <div>
+            <strong>{summary.total_rules}</strong>
+            <span>Firewall Rules</span>
+          </div>
+        </div>
+
+        <div className="configuration-item">
+          <span className="configuration-icon">↔</span>
+          <div>
+            <strong>{summary.total_nat_rules}</strong>
+            <span>NAT Rules</span>
+          </div>
+        </div>
+
+        <div className="configuration-item">
+          <span className="configuration-icon">⌖</span>
+          <div>
+            <strong>{summary.total_routes}</strong>
+            <span>Routes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

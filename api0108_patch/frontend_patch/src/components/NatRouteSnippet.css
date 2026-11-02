@@ -1,0 +1,12 @@
+.nrr-panel { min-width: 0; }
+.nrr-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap; }
+.nrr-heading h2 { margin:0; }
+.nrr-heading > span { font-size: .77rem; opacity: .72; }
+.nrr-stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0; }
+.nrr-stats > div { display:flex;flex-direction:column;gap:3px;min-width:0; }
+.nrr-stats strong { font-size:1.15rem; }
+.nrr-stats span {font-size:.72rem;opacity:.72;}
+.nrr-snippets {padding-left:18px;font-size:.82rem;margin:8px 0;}
+.nrr-snippets li { margin:4px 0; }
+.nrr-note {font-size:.79rem;opacity:.76;margin:8px 0 0;}
+@media(max-width:640px) {.nrr-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}

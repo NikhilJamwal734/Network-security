@@ -1,0 +1,120 @@
+/* Scoped Cisco ASA inventory within the single universal dashboard. */
+.ua-asa-overview .summary-cards {
+  margin: 16px 0 22px;
+}
+.ua-asa-visual-grid,
+.ua-asa-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.ua-asa-visual-grid { margin: 14px 0 20px; }
+.ua-asa-score { display: flex; align-items: center; justify-content: center; }
+.ua-asa-subpanel {
+  min-width: 0;
+  border: 1px solid var(--ua-border);
+  border-radius: 12px;
+  padding: 14px;
+  overflow-wrap: anywhere;
+}
+.ua-asa-overview .ua-section-heading { margin-bottom: 8px; }
+.ua-asa-overview .ua-section-heading p { margin-top: 4px; }
+@media (max-width: 860px) {
+  .ua-asa-visual-grid,
+  .ua-asa-detail-grid { grid-template-columns: 1fr; }
+}
+
+
+/* API-009.7 UI polish: findings spacing */
+.ua-page .ua-findings {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+.ua-page .ua-finding {
+  padding: 22px 24px;
+  border-radius: 14px;
+}
+.ua-page .ua-finding-top {
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ua-page .ua-finding h3 {
+  margin: 0 0 14px;
+  font-size: 1.06rem;
+  line-height: 1.4;
+}
+.ua-page .ua-finding p {
+  margin: 12px 0;
+  line-height: 1.75;
+}
+.ua-page .ua-finding .ua-evidence {
+  margin: 20px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--ua-border, rgba(148,163,184,.22));
+}
+.ua-page .ua-severities {
+  gap: 14px;
+}
+.ua-page .ua-asa-detail-grid,
+.ua-page .ua-asa-visual-grid {
+  gap: 20px;
+}
+.ua-page .ua-asa-subpanel {
+  padding: 20px;
+}
+/* The inventory itself uses five responsive metric cards; let it use panel width. */
+.ua-page .ua-asa-detail-grid:has(.ucs-summary) {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 640px) {
+  .ua-page .ua-findings { gap: 14px; }
+  .ua-page .ua-finding { padding: 17px; }
+  .ua-page .ua-asa-subpanel { padding: 16px; }
+}
+
+
+/* API-009.7 dashboard cleanup: full-width inventory, responsive cards */
+.ua-page .ua-asa-overview .ua-asa-inventory {
+  width: 100%;
+  min-width: 0;
+  margin: 20px 0;
+  padding: clamp(16px, 2vw, 24px);
+}
+.ua-page .ua-asa-overview .ua-asa-info {
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: clamp(16px, 2vw, 24px);
+}
+/* The old 5-across columns caused labels to wrap into vertical letters.
+   auto-fit always gives the cards enough room to display whole words. */
+.ua-page .ua-asa-overview .ucs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr));
+  gap: 14px;
+}
+.ua-page .ua-asa-overview .ucs-card {
+  min-width: 0;
+  min-height: 114px;
+  padding: 18px;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.ua-page .ua-asa-overview .ucs-label {
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  line-height: 1.4;
+}
+@media (max-width: 520px) {
+  .ua-page .ua-asa-overview .ucs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    gap: 12px;
+  }
+  .ua-page .ua-asa-overview .ucs-card { padding: 14px; }
+}
+
+/* Shared normalized chart is used in the dashboard; ASA keeps only its legacy score widget. */
+.ua-page .ua-asa-visual-grid.ua-asa-score-only { grid-template-columns: minmax(0, 1fr); }

@@ -1,0 +1,613 @@
+('C:\\IoT\\Information security\\project 2\\config '
+ 'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\FirewallAnalyzer.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True,
+  'SYMLINK': False},
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgutil',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'PYSOURCE'),
+  ('pyi_rth_multiprocessing',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_setuptools',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_setuptools.py',
+   'PYSOURCE'),
+  ('desktop_launcher_complete',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\desktop_packaging\\desktop_launcher_complete.py',
+   'PYSOURCE'),
+  ('python313.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\python313.dll',
+   'BINARY'),
+  ('_lzma.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_lzma.pyd',
+   'EXTENSION'),
+  ('_bz2.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
+  ('_decimal.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_decimal.pyd',
+   'EXTENSION'),
+  ('_hashlib.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_hashlib.pyd',
+   'EXTENSION'),
+  ('unicodedata.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\unicodedata.pyd',
+   'EXTENSION'),
+  ('_socket.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_socket.pyd',
+   'EXTENSION'),
+  ('select.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\select.pyd',
+   'EXTENSION'),
+  ('_overlapped.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_overlapped.pyd',
+   'EXTENSION'),
+  ('_ssl.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_ssl.pyd',
+   'EXTENSION'),
+  ('_queue.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_queue.pyd',
+   'EXTENSION'),
+  ('_ctypes.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_ctypes.pyd',
+   'EXTENSION'),
+  ('_multiprocessing.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_multiprocessing.pyd',
+   'EXTENSION'),
+  ('pyexpat.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\pyexpat.pyd',
+   'EXTENSION'),
+  ('_asyncio.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_asyncio.pyd',
+   'EXTENSION'),
+  ('_wmi.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_wmi.pyd',
+   'EXTENSION'),
+  ('watchfiles\\_rust_notify.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\watchfiles\\_rust_notify.pyd',
+   'EXTENSION'),
+  ('_uuid.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_uuid.pyd',
+   'EXTENSION'),
+  ('websockets\\speedups.cp313-win_amd64.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets\\speedups.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('httptools\\parser\\url_parser.cp313-win_amd64.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\httptools\\parser\\url_parser.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('httptools\\parser\\parser.cp313-win_amd64.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\httptools\\parser\\parser.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('yaml\\_yaml.cp313-win_amd64.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\yaml\\_yaml.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('_zoneinfo.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_zoneinfo.pyd',
+   'EXTENSION'),
+  ('pydantic_core\\_pydantic_core.cp313-win_amd64.pyd',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic_core\\_pydantic_core.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('api-ms-win-crt-runtime-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-runtime-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-environment-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-environment-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-filesystem-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-filesystem-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-string-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-heap-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-heap-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-conio-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-conio-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-stdio-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-stdio-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-process-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-process-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-time-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-time-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-math-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-math-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-locale-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-locale-l1-1-0.dll',
+   'BINARY'),
+  ('VCRUNTIME140.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('api-ms-win-crt-convert-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-convert-l1-1-0.dll',
+   'BINARY'),
+  ('libcrypto-3.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\libcrypto-3.dll',
+   'BINARY'),
+  ('libssl-3.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\libssl-3.dll',
+   'BINARY'),
+  ('libffi-8.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\libffi-8.dll',
+   'BINARY'),
+  ('VCRUNTIME140_1.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\VCRUNTIME140_1.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-2-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-synch-l1-2-0.dll',
+   'BINARY'),
+  ('python3.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\python3.dll',
+   'BINARY'),
+  ('ucrtbase.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\ucrtbase.dll',
+   'BINARY'),
+  ('api-ms-win-crt-utility-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-crt-utility-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-file-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processenvironment-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-processenvironment-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-libraryloader-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-libraryloader-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-sysinfo-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-sysinfo-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-errorhandling-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-errorhandling-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-debug-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-debug-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-datetime-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-datetime-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-profile-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-profile-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-memory-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-memory-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l2-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-file-l2-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-fibers-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-fibers-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-handle-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-handle-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-namedpipe-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-namedpipe-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processthreads-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l1-2-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-file-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-kernel32-legacy-l1-1-1.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-kernel32-legacy-l1-1-1.dll',
+   'BINARY'),
+  ('api-ms-win-core-localization-l1-2-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-localization-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-console-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-console-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-util-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-util-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-synch-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-interlocked-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-interlocked-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-string-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-timezone-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-timezone-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-sysinfo-l1-2-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-sysinfo-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processthreads-l1-1-1.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-1.dll',
+   'BINARY'),
+  ('api-ms-win-core-heap-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-heap-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-fibers-l1-1-1.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-25.0.2.10-hotspot\\bin\\api-ms-win-core-fibers-l1-1-1.dll',
+   'BINARY'),
+  ('frontend\\dist\\assets\\Configuration-CmYvJcr9.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Configuration-CmYvJcr9.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\Configuration-CtLI5nK-.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Configuration-CtLI5nK-.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\Findings-BeNIYr-8.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Findings-BeNIYr-8.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\Findings-vGnyWGUr.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Findings-vGnyWGUr.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\FirewallRules-DAFa0UGX.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\FirewallRules-DAFa0UGX.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\FirewallRules-DsUFtf_m.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\FirewallRules-DsUFtf_m.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\NATRules-DD147fd5.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NATRules-DD147fd5.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\NATRules-De67or2x.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NATRules-De67or2x.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\NetworkObjects-C0q6aUsg.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NetworkObjects-C0q6aUsg.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\NetworkObjects-DOKm_ePx.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NetworkObjects-DOKm_ePx.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\NormalizedCoveragePage-BIECwhBN.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NormalizedCoveragePage-BIECwhBN.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\NormalizedFindingsPage-IreROqVX.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NormalizedFindingsPage-IreROqVX.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\NormalizedPlatformPages-DQKNedA5.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NormalizedPlatformPages-DQKNedA5.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\NormalizedReportsPage-DG8zS2Yp.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\NormalizedReportsPage-DG8zS2Yp.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\PlatformConfigurationPage-BDi_Q6qI.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\PlatformConfigurationPage-BDi_Q6qI.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\PlatformConfigurationPage-i-cShQiZ.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\PlatformConfigurationPage-i-cShQiZ.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\Routes-BaPbP0Es.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Routes-BaPbP0Es.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\Routes-Bmx4QOYF.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\Routes-Bmx4QOYF.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\ServiceObjects-ClNUHw0B.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\ServiceObjects-ClNUHw0B.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\ServiceObjects-DGsvATG0.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\ServiceObjects-DGsvATG0.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\UniversalAnalysis-B-8R4oU8.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\UniversalAnalysis-B-8R4oU8.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\UniversalAnalysis-CNrxZurg.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\UniversalAnalysis-CNrxZurg.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\html2canvas-zRALU_B7.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\html2canvas-zRALU_B7.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\index.es-DndH_zBh.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\index.es-DndH_zBh.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\jspdf.es.min-Bh8gYNG_.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\jspdf.es.min-Bh8gYNG_.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\logs-C0PGhefs.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\logs-C0PGhefs.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\logs-CXDUXokd.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\logs-CXDUXokd.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\main-DY_z1yAF.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\main-DY_z1yAF.css',
+   'DATA'),
+  ('frontend\\dist\\assets\\main-DmbvBMpw.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\main-DmbvBMpw.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\purify.es-Dqk5qvad.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\purify.es-Dqk5qvad.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\rolldown-runtime-WkwZ5CU-.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\rolldown-runtime-WkwZ5CU-.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\src-BFgP09xd.js',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\src-BFgP09xd.js',
+   'DATA'),
+  ('frontend\\dist\\assets\\src-BiC1Z5pt.css',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\assets\\src-BiC1Z5pt.css',
+   'DATA'),
+  ('frontend\\dist\\favicon.svg',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\favicon.svg',
+   'DATA'),
+  ('frontend\\dist\\icons.svg',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\icons.svg',
+   'DATA'),
+  ('frontend\\dist\\index.html',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\index.html',
+   'DATA'),
+  ('frontend\\dist\\logs.html',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\logs.html',
+   'DATA'),
+  ('frontend\\dist\\reports\\firewall_report.json',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\frontend\\dist\\reports\\firewall_report.json',
+   'DATA'),
+  ('setuptools\\_vendor\\jaraco\\text\\Lorem ipsum.txt',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\setuptools\\_vendor\\jaraco\\text\\Lorem '
+   'ipsum.txt',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\METADATA',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\METADATA',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\entry_points.txt',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\entry_points.txt',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\INSTALLER',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\INSTALLER',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\WHEEL',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\WHEEL',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\RECORD',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\RECORD',
+   'DATA'),
+  ('opentelemetry_api-1.45.1.dist-info\\licenses\\LICENSE',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\opentelemetry_api-1.45.1.dist-info\\licenses\\LICENSE',
+   'DATA'),
+  ('pydantic-2.14.1.dist-info\\METADATA',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic-2.14.1.dist-info\\METADATA',
+   'DATA'),
+  ('pydantic-2.14.1.dist-info\\INSTALLER',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic-2.14.1.dist-info\\INSTALLER',
+   'DATA'),
+  ('pydantic-2.14.1.dist-info\\licenses\\LICENSE',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic-2.14.1.dist-info\\licenses\\LICENSE',
+   'DATA'),
+  ('websockets-17.2.dist-info\\WHEEL',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\WHEEL',
+   'DATA'),
+  ('websockets-17.2.dist-info\\top_level.txt',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\top_level.txt',
+   'DATA'),
+  ('click-8.5.0.dist-info\\RECORD',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\click-8.5.0.dist-info\\RECORD',
+   'DATA'),
+  ('click-8.5.0.dist-info\\INSTALLER',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\click-8.5.0.dist-info\\INSTALLER',
+   'DATA'),
+  ('click-8.5.0.dist-info\\WHEEL',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\click-8.5.0.dist-info\\WHEEL',
+   'DATA'),
+  ('websockets-17.2.dist-info\\METADATA',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\METADATA',
+   'DATA'),
+  ('websockets-17.2.dist-info\\entry_points.txt',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\entry_points.txt',
+   'DATA'),
+  ('click-8.5.0.dist-info\\METADATA',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\click-8.5.0.dist-info\\METADATA',
+   'DATA'),
+  ('pydantic-2.14.1.dist-info\\RECORD',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic-2.14.1.dist-info\\RECORD',
+   'DATA'),
+  ('websockets-17.2.dist-info\\RECORD',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\RECORD',
+   'DATA'),
+  ('websockets-17.2.dist-info\\licenses\\LICENSE',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\licenses\\LICENSE',
+   'DATA'),
+  ('pydantic-2.14.1.dist-info\\WHEEL',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\pydantic-2.14.1.dist-info\\WHEEL',
+   'DATA'),
+  ('websockets-17.2.dist-info\\INSTALLER',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\websockets-17.2.dist-info\\INSTALLER',
+   'DATA'),
+  ('click-8.5.0.dist-info\\licenses\\LICENSE.txt',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\click-8.5.0.dist-info\\licenses\\LICENSE.txt',
+   'DATA'),
+  ('base_library.zip',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-complete-build\\FirewallAnalyzer\\base_library.zip',
+   'DATA')],
+ 'python313.dll',
+ False,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)

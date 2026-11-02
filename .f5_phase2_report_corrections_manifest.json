@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "files": {
+    "frontend/src/utils/normalizedPdf.ts": {
+      "original_sha256": "8387bf29c119cfa7e0d17c5a6ce83091b1880ae52a7cf541bddcba9aa9cdda1e",
+      "installed_sha256": "1d5c2a59c3b992419cf467b25396372f4b574032a25f4405e304ee50d7d70523"
+    },
+    "frontend/src/api/f5Phase1.ts": {
+      "original_sha256": "1c0a43a565e8a0623b012f161d1971f6bd4bf2a9671c4d969334370149f14f77",
+      "installed_sha256": "746bdafdfc8675ecf27bd1180eb0fc86ebbbc375b2a5d42334c9b4d9eaf76056"
+    },
+    "app/f5_phase2_addon/review.py": {
+      "original_sha256": "5d11627d98f3b162a10f3e08c91b2d89646be5fec1e677c1961e0309db73f239",
+      "installed_sha256": "0cdbada8e18e079c851ac771cda6c1b962a62a53d4357de15baab95b4ed328cc"
+    }
+  }
+}

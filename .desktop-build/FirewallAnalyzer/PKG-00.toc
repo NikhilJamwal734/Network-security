@@ -1,0 +1,68 @@
+('C:\\IoT\\Information security\\project 2\\config '
+ 'analyzer\\.desktop-build\\FirewallAnalyzer\\FirewallAnalyzer.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True,
+  'SYMLINK': False},
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.desktop-build\\FirewallAnalyzer\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgutil',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'PYSOURCE'),
+  ('pyi_rth_multiprocessing',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_setuptools',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\.venv-win\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_setuptools.py',
+   'PYSOURCE'),
+  ('desktop_launcher',
+   'C:\\IoT\\Information security\\project 2\\config '
+   'analyzer\\desktop_packaging\\desktop_launcher.py',
+   'PYSOURCE')],
+ 'python313.dll',
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)
